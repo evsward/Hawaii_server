@@ -57,10 +57,10 @@ public class SystemCache {
 	
 //	/** 系统定义的所有业务消息号 */
 //	public static List<MsgCmd> msgCmdList = new ArrayList<MsgCmd>(){{
-//		add(new MsgCmd(101, "SCREENSHOW", "大屏幕信息显示消息", "com.netty.hi.thread.ScreenShowMsgPushServiceImpl"));
-//		add(new MsgCmd(501, "PADDEVIMAN", "PAD端大屏幕设备列表消息", "com.netty.hi.thread.DevManMsgPushServiceImpl"));
-//		add(new MsgCmd(502, "PADCOMPLIST", "PAD端比赛列表消息", "com.netty.hi.thread.CompListMsgPushServiceImpl"));
-//		add(new MsgCmd(503, "PADCOMPSEAT", "PAD端比赛管理--座位信息消息", "com.netty.hi.thread.CompManSeatMsgPushServiceImpl"));
-//		add(new MsgCmd(504, "PADCOMPPROC", "PAD端比赛管理--进程信息消息", "com.netty.hi.thread.CompManProcMshPushServiceImpl"));
+//		add(new MsgCmd(101, "SCREENSHOW", "大屏幕信息显示消息", "com.evsward.server.thread.ScreenShowMsgPushServiceImpl"));
+//		add(new MsgCmd(501, "PADDEVIMAN", "PAD端大屏幕设备列表消息", "com.evsward.server.thread.DevManMsgPushServiceImpl"));
+//		add(new MsgCmd(502, "PADCOMPLIST", "PAD端比赛列表消息", "com.evsward.server.thread.CompListMsgPushServiceImpl"));
+//		add(new MsgCmd(503, "PADCOMPSEAT", "PAD端比赛管理--座位信息消息", "com.evsward.server.thread.CompManSeatMsgPushServiceImpl"));
+//		add(new MsgCmd(504, "PADCOMPPROC", "PAD端比赛管理--进程信息消息", "com.evsward.server.thread.CompManProcMshPushServiceImpl"));
 //	}};
 }

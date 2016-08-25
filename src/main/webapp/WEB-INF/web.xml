@@ -49,7 +49,7 @@
     <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
   </listener>
   <listener>
-    <listener-class>com.netty.hi.init.SystemInitListener</listener-class>
+    <listener-class>com.evsward.server.init.SystemInitListener</listener-class>
   </listener>
   <session-config>
     <session-timeout>30</session-timeout>
@@ -80,7 +80,7 @@
     <description>Init system threads</description>
     <display-name>SystemInitServlet</display-name>
     <servlet-name>SystemInitServlet</servlet-name>
-    <servlet-class>com.netty.hi.init.SystemInitServlet</servlet-class>
+    <servlet-class>com.evsward.server.init.SystemInitServlet</servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
    -->

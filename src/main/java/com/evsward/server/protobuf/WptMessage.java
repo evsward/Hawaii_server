@@ -216,7 +216,7 @@ public final class WptMessage {
         return com.evsward.server.protobuf.WptMessage.internal_static_WptReqMessage_fieldAccessorTable;
       }
       
-      // Construct using com.netty.hi.protobuf.WptMessage.WptReqMessage.newBuilder()
+      // Construct using com.evsward.server.protobuf.WptMessage.WptReqMessage.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -599,7 +599,7 @@ public final class WptMessage {
         return com.evsward.server.protobuf.WptMessage.internal_static_WptAckMessage_fieldAccessorTable;
       }
       
-      // Construct using com.netty.hi.protobuf.WptMessage.WptAckMessage.newBuilder()
+      // Construct using com.evsward.server.protobuf.WptMessage.WptAckMessage.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -795,7 +795,7 @@ public final class WptMessage {
     java.lang.String[] descriptorData = {
       "\n\014WptMsg.proto\"#\n\rWptReqMessage\022\022\n\njsonR" +
       "eqMsg\030\001 \002(\t\"#\n\rWptAckMessage\022\022\n\njsonAckM" +
-      "sg\030\001 \002(\tB(\n\032com.netty.hi.protobufB\n" +
+      "sg\030\001 \002(\tB(\n\032com.evsward.server.protobufB\n" +
       "WptMessage"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
