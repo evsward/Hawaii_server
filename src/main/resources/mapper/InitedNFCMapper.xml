@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.evsward.server.vo.InitedNFC">
+  
+	<resultMap id="InitedNFCResultMap" type="InitedNFC">
+		<id 	column="ID" 		property="id"			/>
+	    <result 	column="NFCID" 		property="uuidLong"			/>
+		<result column="NFCSTATE" 			property="nfcState" 		/>
+		<result column="SYSTYPE" 			property="sysType" 		/>
+	</resultMap>
+	
+	<sql id="columnListAll">
+		ID,NFCID,NFCSTATE,SYSTYPE
+	</sql>
+	<sql id="insertcolumnListAll">
+		NFCID,NFCSTATE,SYSTYPE
+	</sql>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="InitedNFC">
+		insert into INITEDNFC(<include refid="insertcolumnListAll"/>) values(#{uuidLong}, #{nfcState}, #{sysType})
+	</insert>
+  	
+	<select id="get" parameterType="long" resultMap="InitedNFCResultMap">
+  		select 
+			<include refid="columnListAll"/>
+  		from 
+  			INITEDNFC n
+  		where 
+  			n.NFCID = #{uuidLong}
+	</select>
+	
+	<update id="delNfcByID" parameterType="int">
+		update 
+			INITEDNFC n
+		set
+			n.NFCSTATE = -1
+		where
+			n.ID = #{id}
+	</update>
+	
+</mapper>

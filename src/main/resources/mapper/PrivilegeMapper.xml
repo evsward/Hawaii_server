@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.evsward.server.vo.Privilege">
+    
+    <resultMap type="Privilege" id="PrivilegeResultMap">
+        <id 	column="PRIVID" 			property="privID"			/>
+		<result column="PRIVNAME" 			property="privName" 		/>
+		<result column="PRIVPATH" 			property="privPath" 		/>
+		<result column="PRIVSTATE" 			property="privState" 		/>
+		<result column="PRIVPARENTID" 		property="privParentID" 		/>
+		<result column="PRIVNAMESHOW" 		property="privNameShow" 	/>
+		<result column="PRIVDESC" 			property="privDesc" 		/>
+		<result column="PRIVUUID" 			property="privUUID" 		/>
+		<result column="PRIVDEPTH" 			property="privDepth" 		/>
+		<result column="SYSTYPE" 			property="sysType" 			/>
+		<result column="CREATETIME" 		property="createTime" 		/>
+		<result column="UPDATETIME" 		property="updateTime" 		/>
+		<result column="DELTIME" 			property="delTime" 			/>
+    </resultMap>
+
+    <sql id="columnListAll">
+        p.PRIVID,PRIVNAME,PRIVPATH,PRIVSTATE,PRIVPARENTID,PRIVNAMESHOW,PRIVDESC,PRIVUUID,PRIVDEPTH,p.SYSTYPE,CREATETIME,UPDATETIME,DELTIME
+    </sql>
+    
+    <select id="getEnablePrivsByroleID" parameterType="int" resultMap="PrivilegeResultMap">
+        select 
+        	<include refid="columnListAll"/>
+        from 
+        	ROLE_PRIV_RELATION rpr left join PRIVILEGE p on rpr.PRIVID = p.PRIVID
+        where 
+        	rpr.ROLEID = #{roleID} and p.PRIVSTATE = 1 and p.SYSTYPE = 1
+    </select>
+</mapper>

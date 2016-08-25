@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.evsward.server.vo.tcpmsg.MsgCmd">
+  
+	<resultMap id="MsgCmdResultMap" type="msgCmd">
+		<id 	column="MSGID" 		property="msgID"		/>
+	    <result column="MSGNAME" 	property="msgName"		/>
+		<result column="MSGDESC" 	property="msgDesc" 		/>
+		<result column="PUSHCLASS" 	property="pushClass" 	/>
+	</resultMap>
+	
+	<sql id="columnListAll">
+		m.MSGID,MSGNAME,MSGDESC,PUSHCLASS
+	</sql>
+	<sql id="insertcolumnListAll">
+		MSGID,MSGNAME,MSGDESC,PUSHCLASS
+	</sql>
+	
+	<select id="findAll" resultMap="MsgCmdResultMap">
+		select 
+			<include refid="columnListAll"/> 
+		from 
+			MSGCMD m
+		order by 
+			MSGID
+	</select>
+	
+	<select id="selectMsgCmdListByFuncID" parameterType="int" resultMap="MsgCmdResultMap">
+		select 
+			<include refid="columnListAll"/> 
+		from 
+			MSGCMD m, MSGFUNCRELATION f 
+		where 
+			m.MSGID = f.MSGID and f.FUNCID = #{funcID}
+	</select>
+</mapper>

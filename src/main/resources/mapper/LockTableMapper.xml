@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.evsward.server.vo.LockTable">
+	<resultMap id="lockTableResultMap" type="lockTable">
+		<id column="LOCKTYPE" property="lockType" />
+		<result column="LOCKSTATE" property="lock" />
+	</resultMap>
+
+	<sql id="columnListAll">
+		LOCKTYPE, LOCKSTATE
+	</sql>
+	<select id="getLock" resultMap="lockTableResultMap">
+		select
+		<include refid="columnListAll" />
+		from
+		LOCKTABLE
+		where
+		LOCKTYPE = #{lockType}
+		for update
+	</select>
+</mapper>

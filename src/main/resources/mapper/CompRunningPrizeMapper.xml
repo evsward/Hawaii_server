@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.evsward.server.vo.CompRunningPrize">
+  
+	<resultMap id="CompRunningPrizeResultMap" type="compRunningPrize">
+		<id 	column="RANKING" 			property="ranking"			/>
+	    <id 	column="COMPID" 			property="compID" 		/>
+	    <result column="MEMID" 				property="memID"			/>
+		<result column="PERCENT" 			property="percent" 		/>
+		<result column="AMOUNTINT" 			property="amountInt" 		/>
+		<result column="AMOUNT" 			property="amount" 		/>
+		<result column="TABLENO" 			property="tableNO" 		/>
+		<result column="SEATNO" 			property="seatNO" 		/>
+		<result column="SYSTYPE" 			property="sysType" 		/>
+		<result column="CREATETIME" 		property="createTime" 		/>
+		<result column="UPDATETIME" 		property="updateTime" 		/>
+	</resultMap>
+	
+	<resultMap id="CompRunningPrizeWithMemInfoResultMap" type="compRunningPrize">
+		<id 	column="RANKING" 			property="ranking"			/>
+	    <id 	column="COMPID" 			property="compID" 		/>
+	    <result column="MEMID" 				property="memID"			/>
+	    <result column="MEMNAME" 			property="memName"			/>
+	    <result column="MEMIDENTNO" 		property="memIdentNO"			/>
+	    <result column="MEMSEX" 			property="memSex"			/>
+		<result column="PERCENT" 			property="percent" 		/>
+		<result column="AMOUNTINT" 			property="amountInt" 		/>
+		<result column="AMOUNT" 			property="amount" 		/>
+		<result column="TABLENO" 			property="tableNO" 		/>
+		<result column="SEATNO" 			property="seatNO" 		/>
+		<result column="SYSTYPE" 			property="sysType" 		/>
+		<result column="CREATETIME" 		property="createTime" 		/>
+		<result column="UPDATETIME" 		property="updateTime" 		/>
+	</resultMap>
+	
+	<sql id="columnListAll">
+		RANKING,MEMID,COMPID,PERCENT,AMOUNTINT,AMOUNT,SYSTYPE,TABLENO,SEATNO,CREATETIME,UPDATETIME
+	</sql>
+	<sql id="insertcolumnListAll">
+		RANKING,COMPID,MEMID,PERCENT,AMOUNTINT,AMOUNT,SYSTYPE,TABLENO,SEATNO,CREATETIME
+	</sql>
+	<sql id="updatecolumnListAll">
+		PERCENT,AMOUNTINT,AMOUNT,UPDATETIME
+	</sql>
+	
+	
+	<sql id="columnListAllWithMemInfo">
+		RANKING,crp.MEMID,m.MEMNAME,m.MEMIDENTNO,m.MEMSEX,COMPID,PERCENT,AMOUNTINT,AMOUNT,crp.SYSTYPE,TABLENO,SEATNO,crp.CREATETIME,crp.UPDATETIME
+	</sql>
+	
+	<insert id="insertRunningPrize" parameterType="compRunningPrize" keyProperty="id" useGeneratedKeys="true">
+		insert into 
+			COMPRUNNINGPRIZE (<include refid="insertcolumnListAll"/>)
+		values(#{ranking}, #{compID}, #{memID}, #{percent}, #{amountInt}, #{amount}, #{sysType}, #{tableNO}, #{seatNO}, #{createTime})
+	</insert>
+	<!-- 按名次降序排列 -->
+	<select id="getExistCompRunningPrizeList" parameterType="int" resultMap="CompRunningPrizeResultMap">
+		select
+			<include refid="columnListAll"/>
+		from
+			COMPRUNNINGPRIZE
+		where
+			COMPID = #{compID}
+		order by RANKING desc
+	</select>
+	<!-- 带有会员信息 -->
+	<select id="getExistCompRunningPrizeListWithMemInfo" parameterType="int" resultMap="CompRunningPrizeWithMemInfoResultMap">
+		select
+			<include refid="columnListAllWithMemInfo"/>
+		from
+			COMPRUNNINGPRIZE crp left join MEMBERINFO m on crp.MEMID = m.MEMID
+		where
+			COMPID = #{compID}
+		order by RANKING desc
+	</select>
+	<select id="getCompRunningPrize" parameterType="int" resultMap="CompRunningPrizeResultMap">
+		select
+			<include refid="columnListAll"/>
+		from
+			COMPRUNNINGPRIZE
+		where
+			RANKING = #{ranking} and COMPID = #{compID}
+	</select>
+	
+	<!-- 获取最小名次 -->
+	<select id="getExistMinRankNO" parameterType="int" resultType="int">
+		select
+			IFNULL(MIN(RANKING),0) as RANKING
+		from
+			COMPRUNNINGPRIZE
+		where
+			COMPID = #{compID}
+	</select>
+	<update id="updateCompRunningPrizeAmount" parameterType="Map">
+		update 
+			COMPRUNNINGPRIZE
+		set 
+			AMOUNTINT = #{amountInt} 
+		where 
+			RANKING = #{ranking} and COMPID = #{compID}
+	</update>
+</mapper>

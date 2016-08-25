@@ -1,0 +1,14 @@
+option java_package = "com.evsward.server.protobuf";
+option java_outer_classname = "WptMessage";
+
+//请求协议
+message WptReqMessage
+{
+	required string jsonReqMsg = 1;		//请求消息json格式的字符串
+}
+
+//返回协议
+message WptAckMessage
+{
+	required string jsonAckMsg = 1;		//响应消息json格式的字符串
+}

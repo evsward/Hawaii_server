@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.evsward.server.vo.AdvertInfo">
+  
+	<resultMap id="AdvertInfoResultMap" type="advertInfo">
+		<id 	column="ADVERTID" 		property="advertID"		/>
+		<result column="ADVERTNAME" 	property="advertName" 		/>
+	    <result column="PATH" 			property="path" 		/>
+	    <result column="SYSTYPE" 		property="sysType" 		/>
+	    <result column="CREATETIME" 	property="createTime"	/>
+	</resultMap>
+	
+	<sql id="columnListAll">
+		t.ADVERTID,ADVERTNAME,PATH,t.SYSTYPE,CREATETIME
+	</sql>
+	<sql id="insertcolumnListAll">
+		ADVERTNAME,PATH,SYSTYPE,CREATETIME
+	</sql>
+	
+	<insert id="insert" parameterType="advertInfo">
+		insert into ADVERTINFO(<include refid="insertcolumnListAll"/>) values(#{advertName}, #{path}, #{sysType}, #{createTime})
+	</insert>
+  	
+	<select id="getAllAdvertInfoList" parameterType="int" resultMap="AdvertInfoResultMap">
+  		select 
+			<include refid="columnListAll"/>
+  		from 
+  			ADVERTINFO t
+  		where 
+  			t.SYSTYPE = #{sysType}
+  		order by 
+  			ADVERTID
+	</select>
+	
+	<select id="getAdvertInfoByCompID" parameterType="int" resultMap="AdvertInfoResultMap">
+		select 
+			<include refid="columnListAll"/>
+		from 
+			ADVERTINFO t, ADVERTCOMPRELATION r
+		where 
+			t.ADVERTID = r.ADVERTID and r.COMPID = #{compID}
+	</select>
+</mapper>

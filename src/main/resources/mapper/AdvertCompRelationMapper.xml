@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.evsward.server.vo.AdvertCompRelation">
+  
+	<resultMap id="AdvertCompRelationResultMap" type="advertCompRelation">
+		<id 	column="ID" 			property="id"			/>
+	    <result column="COMPID" 		property="compID" 		/>
+	    <result column="ADVERTID" 		property="advertID" 	/>
+	    <result column="SYSTYPE" 		property="sysType"		/>
+	</resultMap>
+	
+	<sql id="columnListAll">
+		ID,COMPID,ADVERTID,SYSTYPE
+	</sql>
+	<sql id="insertcolumnListAll">
+		COMPID,ADVERTID,SYSTYPE
+	</sql>
+	
+	<insert id="insert" parameterType="advertInfo">
+		insert into ADVERTCOMPRELATION(<include refid="insertcolumnListAll"/>) values(#{compID}, #{advertID}, #{sysType})
+	</insert>
+  	
+  	<delete id="delByCompID" parameterType="int">
+  		delete from ADVERTCOMPRELATION where COMPID = #{compID}
+  	</delete>
+</mapper>

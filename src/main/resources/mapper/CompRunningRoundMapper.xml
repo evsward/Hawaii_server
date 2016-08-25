@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.evsward.server.vo.CompRunningRound">
+  
+	<resultMap id="CompRunningRoundResultMap" type="compRunningRound">
+		<id 	column="COMPID" 			property="compID"			/>
+		<result column="ROUNDTEMPID" 		property="roundTempID" 		/>
+	    <result column="CURBIGBLIND" 		property="curBigBlind" 		/>
+	    <result column="CURSMALLBLIND" 		property="curSmallBlind"	/>
+		<result column="CURBEFORECHIP" 		property="curBeforeChip" 	/>
+		<result column="CURRANK" 			property="curRank" 			/>
+		<result column="CURTYPE" 			property="curType" 			/>
+		<result column="STEPLEN"			property="stepLen"			/>
+		<result column="CURSTARTTIME" 		property="curStartTime" 	/>
+		<result column="RESTARTTIME" 		property="reStartTime" 		/>
+		<result column="SYSTYPE" 			property="sysType" 			/>
+	</resultMap>
+	
+	<sql id="columnListAll">
+		COMPID,ROUNDTEMPID,CURBIGBLIND,CURSMALLBLIND,CURBEFORECHIP,CURRANK,CURTYPE,STEPLEN,CURSTARTTIME,RESTARTTIME,SYSTYPE
+	</sql>
+	<sql id="insertcolumnListAll">
+		COMPID,ROUNDTEMPID,CURBIGBLIND,CURSMALLBLIND,CURBEFORECHIP,CURRANK,CURTYPE,STEPLEN,CURSTARTTIME,RESTARTTIME,SYSTYPE
+	</sql>
+	
+	<select id="getRunningRoundByCompID" parameterType="int" resultMap="CompRunningRoundResultMap">
+		select 
+			<include refid="columnListAll"/>
+		from 
+			COMPRUNNINGROUND
+		where 
+			COMPID = #{compID}
+	</select>
+	<insert id="insertRunningRound" useGeneratedKeys="true" keyProperty="id" parameterType="compRunningRound">
+		insert into COMPRUNNINGROUND(<include refid="insertcolumnListAll"/>) values(#{compID},#{roundTempID},#{curBigBlind},#{curSmallBlind},#{curBeforeChip},#{curRank},#{curType},#{stepLen},#{curStartTime},#{reStartTime},#{sysType})
+	</insert>
+	<delete id="delRunningRoundByCompID" parameterType="int">
+		delete from COMPRUNNINGROUND where COMPID = #{compID}
+	</delete>
+	
+	<update id="updateRunningRoundReStartTime" parameterType="Map">
+		update 
+			COMPRUNNINGROUND 
+		set 
+			RESTARTTIME = #{reStartTime}
+		where 
+			COMPID = #{compID}
+	</update>
+</mapper>

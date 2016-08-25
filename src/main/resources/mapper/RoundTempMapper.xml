@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.evsward.server.vo.RoundTemplate">
+  
+	<resultMap id="RoundTempResultMap" type="roundTemplate">
+		<id 	column="ROUNDTEMPID" 	property="roundTempID"	/>
+	    <result column="NAME" 			property="name" 		/>
+	    <result column="SYSTYPE" 			property="sysType" 		/>
+	    <result column="CREATETIME" 	property="createTime"	/>
+	</resultMap>
+	
+	<sql id="columnListAll">
+		ROUNDTEMPID,NAME,SYSTYPE,CREATETIME
+	</sql>
+	<sql id="insertcolumnListAll">
+		NAME,SYSTYPE,CREATETIME
+	</sql>
+	
+	<insert id="insert" parameterType="roundTemplate">
+		insert into ROUNDTEMPLATE(<include refid="insertcolumnListAll"/>) values(#{name}, #{sysType}, #{createTime})
+	</insert>
+  	
+	<select id="getAllRoundTempBySysType" resultMap="RoundTempResultMap" parameterType="int">
+  		select 
+			<include refid="columnListAll"/>
+  		from 
+  			ROUNDTEMPLATE
+  		where 
+  			SYSTYPE = #{sysType}
+  		order by 
+  			ROUNDTEMPID
+	</select>
+	
+	<select id="getAllRoundTemp" resultMap="RoundTempResultMap">
+  		select 
+			<include refid="columnListAll"/>
+  		from 
+  			ROUNDTEMPLATE
+  		order by 
+  			ROUNDTEMPID
+	</select>
+</mapper>

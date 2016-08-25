@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.evsward.server.vo.CompetitionInfo">
+  
+	<resultMap id="CompetitionInfoResultMap" type="competitionInfo">
+		<id 	column="COMPID" 			property="compID"			/>
+	    <result column="ROUNDTEMPID" 		property="roundTempID" 		/>
+	    <result column="COMPNAME" 			property="compName"			/>
+		<result column="COMPSTATE" 			property="compState" 		/>
+		<result column="COMPPAUSE" 			property="compPause" 		/>
+		<result column="COMPTYPE" 			property="compType" 		/>
+		<result column="SYSTYPE" 			property="sysType" 			/>
+		<result column="REGFEE" 			property="regFee" 			/>
+		<result column="SERVICFEE" 			property="serviceFee" 		/>
+		<result column="BEGINCHIP" 			property="beginChip" 		/>
+		<result column="AMOUNTUNIT" 		property="amountUnit" 		/>
+		<result column="AWORD" 				property="aword" 			/>
+		<result column="STOPREGRANK" 		property="stopRegRank" 		/>
+		<result column="LEASTPRIZE" 		property="leastPrize" 		/>
+		<result column="SUBPLAYERCOUNT" 	property="subPlayerCount" 	/>
+		<result column="TOTALPLAYER" 		property="totalPlayer" 		/>
+		<result column="SYNCDATA" 			property="syncData" 		/>
+		<result column="TABLETYPE" 			property="tableType" 		/>
+		<result column="ASSIGNSEAT" 		property="assignSeat" 		/>
+		<result column="REENTRY" 			property="reEntry" 			/>
+		<result column="STARTTIME" 			property="startTime" 		/>
+		<result column="STARTREGTIME" 		property="startRegTime" 	/>
+		<result column="CREATETIME" 		property="createTime" 		/>
+		<result column="UPDATETIME" 		property="updateTime" 		/>
+		<result column="ENDTIME" 			property="endTime" 			/>
+		<result column="PAUSETIME" 			property="pauseTime" 		/>
+	</resultMap>
+	<sql id="columnListAll">
+		COMPID,
+		ROUNDTEMPID,
+		COMPNAME,
+		COMPSTATE,
+		COMPPAUSE,
+		COMPTYPE,
+		SYSTYPE,
+		REGFEE,
+		SERVICFEE,
+		BEGINCHIP,
+		AMOUNTUNIT,
+		AWORD,
+		STOPREGRANK,
+		LEASTPRIZE,
+		SUBPLAYERCOUNT,
+		TOTALPLAYER,
+		SYNCDATA,
+		TABLETYPE,
+		ASSIGNSEAT,
+		REENTRY,
+		STARTTIME,
+		STARTREGTIME,
+		CREATETIME,
+		UPDATETIME,
+		ENDTIME,
+		PAUSETIME
+	</sql>
+	<sql id="insertcolumnListAll">
+		ROUNDTEMPID,COMPNAME,COMPSTATE,COMPPAUSE,COMPTYPE,SYSTYPE,REGFEE,SERVICFEE,BEGINCHIP,AMOUNTUNIT,AWORD,STOPREGRANK,LEASTPRIZE,SUBPLAYERCOUNT,TOTALPLAYER,SYNCDATA,TABLETYPE,ASSIGNSEAT,REENTRY,STARTTIME,STARTREGTIME,CREATETIME,UPDATETIME,ENDTIME,PAUSETIME
+	</sql>
+	<!-- 
+	<sql id="updateCompInfo">
+		ROUNDTEMPID,COMPNAME,REGFEE,SERVICFEE,BEGINCHIP,AMOUNTUNIT,AWORD,STOPREGRANK,LEASTPRIZE,SYNCDATA,TABLETYPE,REENTRY,STARTTIME,UPDATETIME
+	</sql>
+	 -->
+	<insert id="insert" parameterType="competitionInfo" keyProperty="compID" useGeneratedKeys="true">
+		insert into 
+			COMPETITIONINFO (<include refid="insertcolumnListAll"/>) 
+		values
+			(#{roundTempID},#{compName},#{compState},#{compPause},#{compType},
+			#{sysType},#{regFee},#{serviceFee},#{beginChip},#{amountUnit},
+			#{aword},#{stopRegRank},#{leastPrize},#{subPlayerCount},#{totalPlayer},#{syncData},#{tableType},
+			#{assignSeat},#{reEntry},#{startTime},#{startRegTime},
+			#{createTime},#{updateTime},#{endTime},#{pauseTime})
+	</insert>
+	<select id="getCompInfoByName" parameterType="Map" resultMap="CompetitionInfoResultMap">
+  		select 
+			<include refid="columnListAll"/>
+  		from 
+  			COMPETITIONINFO
+  		where 
+  			COMPNAME = #{compName} AND COMPSTATE != #{compState}
+	</select>
+	<select id="getCompInfoByID" parameterType="int" resultMap="CompetitionInfoResultMap">
+  		select 
+			<include refid="columnListAll"/>
+  		from 
+  			COMPETITIONINFO
+  		where 
+  			COMPID = #{compID}
+	</select>
+	<select id="getAllCompetition" parameterType="int" resultMap="CompetitionInfoResultMap">
+		select
+			<include refid="columnListAll"/>
+		from
+			COMPETITIONINFO
+		where 
+			SYSTYPE = #{sysType}
+		order by
+			STARTTIME desc
+	</select>
+	<select id="getAllCompetitionNoDel" resultMap="CompetitionInfoResultMap" parameterType="Map">
+		select
+			<include refid="columnListAll"/>
+		from
+			COMPETITIONINFO
+		where 
+			COMPSTATE != #{compState} and SYSTYPE = #{sysType}
+		order by
+			STARTTIME desc
+	</select>
+	<select id="getNoEndCompsInTimeAreaNoDelNoEnd" parameterType="Map" resultMap="CompetitionInfoResultMap">
+		select
+			<include refid="columnListAll"/>
+		from
+			COMPETITIONINFO
+		where 
+		<foreach collection="compStateArr" close=")" index="0" item="compState" open="(" separator="and">
+			COMPSTATE != #{compState} 
+		</foreach>
+			and SYSTYPE = #{sysType} and (STARTTIME between #{start} and #{end})
+		order by
+			STARTTIME desc
+	</select>
+	
+	<!-- 晋级导入,查询结束状态的晋级赛 -->
+	<select id="getEndOrigAdvanCompList" parameterType="int" resultMap="CompetitionInfoResultMap">
+		select 
+			<include refid="columnListAll"/>
+		from 
+			COMPETITIONINFO 
+		where 
+			COMPSTATE = 5 and COMPTYPE = 1 and SYSTYPE = #{sysType}
+		order by 
+			COMPID
+	</select>
+	<select id="getDestCompList" parameterType="int" resultMap="CompetitionInfoResultMap">
+		select 
+			<include refid="columnListAll"/>
+		from 
+			COMPETITIONINFO 
+		where 
+			COMPSTATE = 1 and SYSTYPE = #{sysType}
+		order by 
+			COMPID
+	</select>
+	<!-- 
+	<update id="updateCompInfoByID" parameterType="competitionInfo">
+		update 
+			COMPETITIONINFO
+		set
+			ROUNDTEMPID=#{roundTempID}, COMPNAME=#{compName}, REGFEE=#{regFee}, SERVICFEE=#{serviceFee}, 
+			BEGINCHIP=#{beginChip}, AMOUNTUNIT=#{amountUnit}, AWORD=#{aword}, STOPREGRANK=#{stopRegRank}, 
+			LEASTPRIZE=#{leastPrize}, TABLETYPE=#{tableType}, REENTRY=#{reEntry}, COMPTYPE=#{compType}, 
+			STARTTIME=#{startTime}, UPDATETIME=#{updateTime}
+		where 
+			COMPID=#{compID}
+	</update>
+	 -->
+	<update id="delCompetition" parameterType="Map">
+		update COMPETITIONINFO set COMPSTATE = #{compState}, UPDATETIME = #{updateTime} where COMPID = #{compID}
+	</update>
+	<update id="updateCompetitionState" parameterType="Map">
+		update COMPETITIONINFO set COMPSTATE = #{compState}, UPDATETIME = #{updateTime} where COMPID = #{compID}
+	</update>
+	<update id="endCompByID" parameterType="Map">
+		update COMPETITIONINFO set COMPSTATE = #{compState}, UPDATETIME = #{updateTime}, ENDTIME = #{endTime} where COMPID = #{compID}
+	</update>
+	<update id="run2pauseCompByID" parameterType="Map">
+		update COMPETITIONINFO set COMPPAUSE = #{compPause}, UPDATETIME = #{updateTime}, PAUSETIME = #{pauseTime} where COMPID = #{compID}
+	</update>
+	<update id="pause2runCompByID" parameterType="Map">
+		update COMPETITIONINFO set COMPPAUSE = #{compPause}, UPDATETIME = #{updateTime} where COMPID = #{compID}
+	</update>
+	<update id="openCompRegState" parameterType="Map">
+		update COMPETITIONINFO set COMPSTATE = #{compState}, UPDATETIME = #{updateTime}, STARTREGTIME = #{openRegTime} where COMPID = #{compID}
+	</update>
+	<update id="updateSubPlayer" parameterType="Map">
+		update COMPETITIONINFO set SUBPLAYERCOUNT = #{subPlayerCount}, UPDATETIME = #{updateTime} where COMPID = #{compID};
+	</update>
+	<update id="addRegedPlayer" parameterType="Map">
+		update COMPETITIONINFO set TOTALPLAYER = TOTALPLAYER+1, UPDATETIME = #{updateTime} where COMPID = #{compID}
+	</update>
+	<update id="updateDestCompForImport" parameterType="competitionInfo">
+		update COMPETITIONINFO set BEGINCHIP = #{beginChip}, COMPSTATE = #{compState}, TOTALPLAYER = #{totalPlayer}, SUBPLAYERCOUNT = #{subPlayerCount}, UPDATETIME = #{updateTime} where COMPID = #{compID}
+	</update>
+
+	<!-- competition后台维护线程 -->
+	<select id="getCompInfoListForInit_Serv" parameterType="int" resultMap="CompetitionInfoResultMap">
+		select
+			<include refid="columnListAll"/>
+		from
+			COMPETITIONINFO
+		where 
+			COMPSTATE != -1 and COMPSTATE != 5 and SYSTYPE = #{sysType}
+		order by
+			STARTTIME
+	</select>
+</mapper>

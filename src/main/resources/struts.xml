@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+        "http://struts.apache.org/dtds/struts-2.1.dtd">
+
+<struts>
+	<constant name="struts.convention.package.locators" value="web,action" />
+	<constant name="struts.convention.package.locators.basePackage" value="com.evsward.server" />	
+
+	<!-- 是否将Action类转换成小写 -->
+	<constant name="struts.convention.action.name.lowercase" value="true" />
+	<!--
+		这个属性是约定当一个Java 类 有多个单词组合成的时候，映射的URL地址的时候访问的格式的分隔符。
+		如果不指定这个属性，Struts默认的分隔符是 “-”，例如 HelloWorldAction 则访问的URL
+		是Hello-World.action
+	-->
+	<constant name="struts.convention.action.name.separator" value="" />
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<constant name="struts.i18n.reload" value="true" />
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.configuration.xml.reload" value="true" />
+	<constant name="struts.custom.i18n.resources" value="globalMessages" />
+	<constant name="struts.action.extension" value="do,," />
+
+	<constant name="struts.serve.static" value="true" />
+	<constant name="struts.serve.static.browserCache" value="false" />
+	<!-- 图片上传临时目录 -->
+	<constant name="struts.multipart.maxSize" value="4194304"/>
+	<constant name="struts.multipart.saveDir" value="d:\hiUpload"></constant>
+	
+	<!-- 
+		使用Convention插件,实现约定大于配置的零配置文件风格.
+	             特殊的Result路径在Action类中使用@Result设定. 
+	-->
+	<package name="hi" namespace="/" extends="convention-default">
+		<interceptors>
+			<interceptor-stack name="hiDefaultStack">
+				<interceptor-ref name="fileUpload">
+					<param name="allowedTypes">image/bmp,image/png,image/gif,image/jpg,application/octet-stream</param>
+					<param name="maximumSize">4194304</param>
+				</interceptor-ref>
+       	    	<interceptor-ref name="basicStack" />
+       	    	<interceptor-ref name="validation"/>
+     	    </interceptor-stack>
+    	</interceptors>
+
+        <default-interceptor-ref name="hiDefaultStack" />
+
+		<default-action-ref name="indexPage" />
+		<global-results>
+			<result name="error">/common/page/error.jsp</result>
+			<result name="alertAndGoBack">/common/page/alertAndGoBack.jsp</result>
+			<result name="alertAndGoURL">/common/page/alertAndGoURL.jsp</result>
+		</global-results>
+		<global-exception-mappings>
+			<exception-mapping result="error" exception="java.lang.Exception" />
+		</global-exception-mappings>
+		<action name="indexPage">
+			<result>/index.jsp</result>
+		</action>
+	</package> 
+	
+</struts>

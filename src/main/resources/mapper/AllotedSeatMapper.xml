@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.evsward.server.vo.AllotedSeat">
+  
+	<resultMap id="allotedSeatResultMap" type="allotedSeat">
+		<id 		column="TABLENO" 		property="tableNO"		/>
+		<id 		column="SEATNO" 		property="seatNO"		/>
+	    <result 	column="COMPID" 		property="compID" 		/>
+	    <result 	column="MEMID" 			property="memID"		/>
+		<result 	column="CREATETIME" 	property="createTime" 	/>
+	</resultMap>
+	
+	<sql id="columnListAll">
+		TABLENO,SEATNO,COMPID,MEMID,CREATETIME
+	</sql>
+	<sql id="insertcolumnListAll">
+		TABLENO,SEATNO,COMPID,MEMID,CREATETIME
+	</sql>
+	
+	<insert id="insert" parameterType="unAllotedSeat" useGeneratedKeys="true" keyProperty="id">
+		insert into ALLOTEDSEATINFO(<include refid="insertcolumnListAll"/>) values(#{tableNO}, #{seatNO}, #{compID}, #{memID}, #{createTime})
+	</insert>
+  	<delete id="delAllByCompID" parameterType="int">
+  		delete from ALLOTEDSEATINFO where COMPID = #{compID}
+  	</delete>
+  	<delete id="deleteByTableSeatNO" parameterType="Map">
+  		delete from ALLOTEDSEATINFO where TABLENO = #{tableNO} and SEATNO = #{seatNO}
+  	</delete>
+  	<delete id="deleteByTableNO" parameterType="Map">
+  		delete from ALLOTEDSEATINFO where TABLENO = #{tableNO} and COMPID = #{compID}
+  	</delete>
+</mapper>

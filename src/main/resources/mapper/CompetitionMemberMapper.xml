@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.evsward.server.vo.CompetitionMember">
+
+	<resultMap type="competitionMember" id="competitionMemberResultMap">
+		<id 	column="ID" 		property="id"			/>
+		<result column="COMPID" 	property="compID"		/>
+		<result column="MEMID" 		property="memID"		/>
+		<result column="COMPNAME" 	property="compName"		/>
+		<result column="MCSTATE" 	property="mcState"		/>
+		<result column="COMPSTATE" 	property="compState"	/>
+		<result column="TABLENO"	property="tableNO"		/>
+		<result column="SEATNO" 	property="seatNO"		/>
+		<result column="CHIP" 		property="chip"			/>
+		<result column="SYSTYPE" 	property="sysType"		/>
+		<result column="STARTTIME" 	property="compStartTime"/>
+		<result column="REGTIME" 	property="regTime"		/>
+		<result column="OUTTIME" 	property="outTime"		/>
+	</resultMap>
+	<!-- 比赛存活选手信息及座位信息 -->
+	<resultMap type="compMemInfo" id="compMemInfoResultMap">
+		<id 	column="ID" 		property="id"			/>
+		<result column="COMPID" 	property="compID"		/>
+		<result column="MEMID" 		property="memID"		/>
+		<result column="CARDNO" 	property="cardNO"		/>
+		<result column="MEMNAME" 	property="memName"		/>
+		<result column="MEMIMAGE" 	property="memImage"		/>
+		<result column="MEMMOBILE"	property="memMobile"	/>
+		<result column="NFCID" 		property="nfcID"		/>
+		<result column="COMPNAME" 	property="compName"		/>
+		<result column="MCSTATE" 	property="mcState"		/>
+		<result column="COMPSTATE" 	property="compState"	/>
+		<result column="TABLENO"	property="tableNO"		/>
+		<result column="SEATNO" 	property="seatNO"		/>
+		<result column="CHIP" 		property="chip"			/>
+		<result column="SYSTYPE" 	property="sysType"		/>
+		<result column="STARTTIME" 	property="compStartTime"/>
+		<result column="REGTIME" 	property="regTime"		/>
+		<result column="OUTTIME" 	property="outTime"		/>
+	</resultMap>
+	
+	<resultMap type="competitionMember" id="competitionMemberResultMap1">
+		<id 	column="ID" 		property="id"			/>
+		<result column="COMPID" 	property="compID"		/>
+		<result column="MEMID" 		property="memID"		/>
+		<result column="MCSTATE" 	property="mcState"		/>
+		<result column="TABLENO"	property="tableNO"		/>
+		<result column="SEATNO" 	property="seatNO"		/>
+		<result column="CHIP" 		property="chip"			/>
+		<result column="SYSTYPE" 	property="sysType"		/>
+		<result column="REGTIME" 	property="regTime"		/>
+		<result column="OUTTIME" 	property="outTime"		/>
+	</resultMap>
+	
+	<sql id="compMemInfo_columnAll">
+		mc.ID, mc.COMPID, mc.MEMID, m.CARDNO, m.MEMNAME, m.NFCID, m.MEMIMAGE, m.MEMMOBILE, mc.MCSTATE, mc.TABLENO, mc.SEATNO, mc.CHIP, mc.SYSTYPE, mc.REGTIME, mc.OUTTIME
+	</sql>
+	<sql id="columnAll">
+		mc.ID, mc.COMPID, mc.MEMID, cp.COMPNAME, mc.MCSTATE, cp.compState, mc.TABLENO, mc.SEATNO, mc.CHIP, mc.SYSTYPE, cp.STARTTIME, mc.REGTIME, mc.OUTTIME
+	</sql>
+	<sql id="columnAll1">
+		mc.ID, mc.COMPID, mc.MEMID, mc.MCSTATE, mc.TABLENO, mc.SEATNO, mc.CHIP, mc.SYSTYPE, mc.REGTIME, mc.OUTTIME
+	</sql>
+	
+	<select id="selectMemInfoForExportData" parameterType="int" resultType="Map">
+		select 
+			mc.ID, mc.COMPID, mc.MEMID, m.CARDNO, m.MEMNAME, m.MEMSEX, m.NFCID, m.MEMIMAGE, m.MEMMOBILE, mc.MCSTATE, mc.TABLENO, mc.SEATNO, mc.CHIP, mc.SYSTYPE, mc.REGTIME, mc.OUTTIME
+		from 
+			MEMCOMPINFO mc left join MEMBERINFO m on mc.MEMID = m.MEMID
+		where 
+			mc.COMPID = #{compID}
+	</select>
+	<select id="selectMemCompInfos" parameterType="int" resultMap="competitionMemberResultMap">
+		select
+			<include refid="columnAll"/>
+		from 
+			MEMCOMPINFO mc, COMPETITIONINFO cp
+		where 
+			mc.COMPID = cp.COMPID and mc.memid = #{memID} and mc.MCSTATE >= -1
+		order by 
+			cp.STARTTIME desc
+	</select>
+	<!-- 查询会某个会员在某个比赛中，mcstate=1,2的数据 -->
+	<select id="selectMemSpecCompInfos" parameterType="competitionMember" resultMap="competitionMemberResultMap1">
+		select
+			<include refid="columnAll1"/>
+		from 
+			MEMCOMPINFO mc
+		where 
+			mc.COMPID = #{compID} and mc.memid = #{memID} and (mc.MCSTATE = 1 or mc.MCSTATE = 2)
+	</select>
+	<!-- 查询比赛中mcstate=1,2的会员数据 （存活选手和已晋级）-->
+	<select id="getMemOfRunningAndAdvanCompetionInfos" parameterType="int" resultMap="competitionMemberResultMap1">
+		select
+			<include refid="columnAll1"/>
+		from 
+			MEMCOMPINFO mc
+		where 
+			mc.COMPID = #{compID} and (mc.MCSTATE = 1 or mc.MCSTATE = 2)
+		order by 
+			mc.CHIP
+	</select>
+	<!-- 查询比赛中已报名的选手数量，mcstate!=-1
+	<select id="findCompRegTotalPlayerCount" parameterType="int" resultType="long">
+		select
+			count(*) as regedCount
+		from 
+			MEMCOMPINFO mc
+		where 
+			mc.COMPID = #{compID} and MCSTATE != -1
+	</select>
+	 -->
+	<!-- 查询比赛中存活的选手数量，mcstate=1 -->
+	<select id="findCompLivedTotalPlayerCount" parameterType="int" resultType="long">
+		select
+			count(*) as livedCount
+		from 
+			MEMCOMPINFO mc
+		where 
+			mc.COMPID = #{compID} and MCSTATE = 1
+	</select>
+	<!-- 查询比赛中选手的座位信息以及会员基础信息 -->
+	<select id="getCompMemsSeatInfo" parameterType="int" resultMap="compMemInfoResultMap">
+		select
+			<include refid="compMemInfo_columnAll"/>
+		from 
+			MEMCOMPINFO mc left join MEMBERINFO m on mc.MEMID = m.MEMID
+		where 
+			mc.MCSTATE = 1 and mc.COMPID = #{compID}
+		order by 
+			mc.TABLENO,MC.SEATNO
+	</select>
+	<!-- 比赛管理-玩家，查询玩家比赛信息 -->
+	<select id="getCompPlayerInfo" parameterType="Map" resultMap="compMemInfoResultMap">
+		select
+			<include refid="compMemInfo_columnAll"/>
+		from 
+			MEMCOMPINFO mc left join MEMBERINFO m on mc.MEMID = m.MEMID
+		where 
+			(mc.MCSTATE = 1 or mc.MCSTATE = 2) and mc.COMPID = #{compID}
+		order by 
+		<choose>
+			<when test="chipOrder == 1">
+				m.CARDNO, mc.CHIP asc
+			</when>
+			<otherwise>
+				mc.CHIP desc
+			</otherwise>
+		</choose>
+	</select>
+	<!-- 比赛管理-筹码，查询玩家筹码信息 -->
+	<select id="getCompPlayerChip" parameterType="int" resultMap="compMemInfoResultMap">
+		select
+			<include refid="compMemInfo_columnAll"/>
+		from 
+			MEMCOMPINFO mc left join MEMBERINFO m on mc.MEMID = m.MEMID
+		where 
+			(mc.MCSTATE = 1 or mc.MCSTATE = 2) and mc.COMPID = #{compID}
+		order by 
+			mc.CHIP
+	</select>
+	
+	<!-- 比赛管理-筹码，查询玩家筹码信息 -->
+	<select id="getSpecPlayerChipByNfcID" parameterType="Map" resultMap="compMemInfoResultMap">
+		select
+			<include refid="compMemInfo_columnAll"/>
+		from 
+			MEMCOMPINFO mc, MEMBERINFO m 
+		where 
+			mc.MEMID = m.MEMID and (mc.MCSTATE = 1 or mc.MCSTATE = 2) and mc.COMPID = #{compID} and m.NFCID = #{nfcID}
+	</select>
+	<!-- 比赛管理-筹码，查询玩家筹码信息 -->
+	<select id="getSpecPlayerChipByCardNO" parameterType="int" resultMap="compMemInfoResultMap">
+		select
+			<include refid="compMemInfo_columnAll"/>
+		from 
+			MEMCOMPINFO mc, MEMBERINFO m 
+		where 
+			mc.MEMID = m.MEMID and (mc.MCSTATE = 1 or mc.MCSTATE = 2) and mc.COMPID = #{compID} and m.CARDNO = #{cardNO}
+	</select>
+	
+	<select id="get" parameterType="int" resultMap="competitionMemberResultMap1">
+		select 
+			<include refid="columnAll1"/>
+		from 
+			MEMCOMPINFO mc
+		where 
+			ID = #{id}
+	</select>
+	<select id="getAdvanCompMemByCompID" parameterType="int" resultMap="competitionMemberResultMap1">
+		select 
+			<include refid="columnAll1"/>
+		from 
+			MEMCOMPINFO mc
+		where 
+			COMPID = #{compID} and MCSTATE = 2
+	</select>
+	<select id="getLivedMemByTableNO" parameterType="Map" resultMap="competitionMemberResultMap1">
+		select 
+			<include refid="columnAll1"/> 
+		from 
+			MEMCOMPINFO mc
+		where 
+			mc.MCSTATE = #{mcState} and TABLENO = #{tableNO}
+	</select>
+	
+	<select id="selectMemRegedCompsOfToday" parameterType="Map" resultType="Map">
+		select 
+			c.COMPNAME, mc.COMPID, mc.MEMID 
+		from 
+			MEMCOMPINFO mc, COMPETITIONINFO c
+		where 
+			mc.COMPID = c.COMPID 
+			and mc.MCSTATE = 1 
+			and c.STARTTIME &gt;= #{startTime} 
+			and c.STARTTIME &lt;= #{endTime} 
+			and mc.MEMID = #{memID}
+	</select>
+	
+	<update id="logicDelMemRegRecordsOfComp" parameterType="int">
+		update MEMCOMPINFO set MCSTATE = -1 where COMPID= #{compID}
+	</update>
+	<!-- 添加一条参赛记录 -->
+	<insert id="insertMemComp" parameterType="competitionMember">
+		insert into MEMCOMPINFO(MEMID, COMPID, MCSTATE, TABLENO, SEATNO, CHIP, SYSTYPE, REGTIME) values(#{memID}, #{compID}, #{mcState}, #{tableNO}, #{seatNO}, #{chip}, #{sysType}, #{regTime})
+	</insert>
+	<!-- 更新比赛所有mcstate=1的选手为mcstate=2晋级状态 -->
+	<update id="updateMemsAdvanByCompID" parameterType="int">
+		update MEMCOMPINFO set MCSTATE = 2 where COMPID = #{compID} and MCSTATE = 1
+	</update>
+	<update id="updateMemSeatInfo" parameterType="Map">
+		update MEMCOMPINFO set TABLENO = #{tableNO}, SEATNO = #{seatNO} where ID = #{cmID}
+	</update>
+	<update id="outCompMemberByID" parameterType="Map">
+		update MEMCOMPINFO set MCSTATE = #{mcState}, OUTTIME = #{outTime}, CHIP = 0 where ID = #{cmID}
+	</update>
+	<update id="updatePlayerChipByID" parameterType="Map">
+		update MEMCOMPINFO set CHIP = #{chip} where ID = #{cmID}
+	</update>
+	
+</mapper>

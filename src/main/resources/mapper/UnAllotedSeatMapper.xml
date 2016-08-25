@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.evsward.server.vo.UnAllotedSeat">
+  
+	<resultMap id="UnAllotedSeatResultMap" type="unAllotedSeat">
+		<id 		column="TABLENO" 		property="tableNO"		/>
+		<id 		column="SEATNO" 		property="seatNO"		/>
+	    <result 	column="COMPID" 		property="compID" 		/>
+		<result 	column="TABLETYPE" 		property="tableType"	/>
+		<result 	column="CREATETIME" 	property="createTime" 	/>
+		<result 	column="LEVEL" 			property="level" 		/>
+		<result 	column="SYSTYPE" 		property="sysType" 		/>
+	</resultMap>
+	
+	<sql id="columnListAll">
+		TABLENO,SEATNO,COMPID,TABLETYPE,CREATETIME,LEVEL,SYSTYPE
+	</sql>
+	<sql id="insertcolumnListAll">
+		TABLENO,SEATNO,COMPID,TABLETYPE,CREATETIME,LEVEL,SYSTYPE
+	</sql>
+	
+	<insert id="insert" parameterType="unAllotedSeat" useGeneratedKeys="true" keyProperty="id">
+		insert into UNALLOTSEATINFO(<include refid="insertcolumnListAll"/>) values(#{tableNO}, #{seatNO}, #{compID}, #{tableType}, #{createTime}, #{level}, #{sysType})
+	</insert>
+  	<!-- 获取比赛一个待分配座位，按照级别排序 -->
+  	<select id="getUnAllotedSeatByCompID" parameterType="int" resultMap="UnAllotedSeatResultMap">
+  		select 
+			<include refid="columnListAll"/>
+		from 
+			UNALLOTSEATINFO
+		where 
+			COMPID = #{compID}
+		order by 
+			LEVEL,CREATETIME
+		limit 0,1
+  	</select>
+  	<select id="getUnAllotedSeatByCompIDBurst" parameterType="Map" resultMap="UnAllotedSeatResultMap">
+  		select 
+			<include refid="columnListAll"/>
+		from 
+			UNALLOTSEATINFO
+		where 
+			COMPID = #{compID} and TABLENO != #{tableNO}
+		order by 
+			LEVEL,CREATETIME
+		limit 0,#{size}
+  	</select>
+  	<!-- 获取比赛一个指定待分配位置 -->
+	<select id="selectUnAllotedSpecSeatInfo" parameterType="unAllotedSeat" resultMap="UnAllotedSeatResultMap">
+		select 
+			<include refid="columnListAll"/>
+		from 
+			UNALLOTSEATINFO
+		where 
+			TABLENO = #{tableNO} and SEATNO = #{seatNO} and COMPID = #{compID}
+	</select>
+	<!-- 获取比赛的所有待分配位置，按照级别排序 -->
+	<select id="getUnAllotedSeatsByCompID" parameterType="unAllotedSeat" resultMap="UnAllotedSeatResultMap">
+		select 
+			<include refid="columnListAll"/>
+		from 
+			UNALLOTSEATINFO
+		where 
+			COMPID = #{compID}
+		order by 
+			LEVEL,CREATETIME
+	</select>
+	<delete id="delSpecUnAllotedSeat" parameterType="Map">
+		delete from UNALLOTSEATINFO where COMPID = #{compID} and TABLENO = #{tableNO} and SEATNO = #{seatNO}
+	</delete>
+	<delete id="delUnAllotedSeatsByCompID" parameterType="int">
+		delete from UNALLOTSEATINFO where COMPID = #{compID}
+	</delete>
+	<delete id="delUnAllotedSeatByID" parameterType="int">
+		delete from UNALLOTSEATINFO where ID = #{id}
+	</delete>
+	<delete id="delUnAllotedSeatsByTableNO" parameterType="int">
+		delete from UNALLOTSEATINFO where TABLENO = #{tableNO}
+	</delete>
+</mapper>

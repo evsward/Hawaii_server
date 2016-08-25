@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.evsward.server.vo.tcpmsg.MsgPushFunction">
+  
+	<resultMap id="MsgPushFunctionResultMap" type="msgPushFunction">
+		<id 	column="FUNCID" 	property="funcID"		/>
+	    <result column="FUNCNAME" 	property="funcName"		/>
+		<result column="FUNCDESC" 	property="funcDesc" 	/>
+	</resultMap>
+	
+	<sql id="columnListAll">
+		FUNCID,FUNCNAME,FUNCDESC
+	</sql>
+	<sql id="insertcolumnListAll">
+		FUNCID,FUNCNAME,FUNCDESC
+	</sql>
+	
+	<select id="findAll" resultMap="MsgPushFunctionResultMap">
+		select 
+			<include refid="columnListAll"/> 
+		from 
+			MSGPUSHFUNCTION 
+		order by 
+			FUNCID
+	</select>
+</mapper>

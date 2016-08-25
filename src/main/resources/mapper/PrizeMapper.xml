@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.evsward.server.vo.Prize">
+  
+	<resultMap id="PrizeResultMap" type="prize">
+		<id 	column="PRIZEID" 		property="prizeID"			/>
+	    <result 	column="PRIZETEMPID" 		property="prizeTempID"			/>
+		<result column="ALLMIN" 			property="allMin" 		/>
+		<result column="ALLMAX" 			property="allMax" 		/>
+		<result column="PERCENT" 			property="percent" 		/>
+		<result column="RANKNO" 			property="rankNO" 		/>
+		<result column="RANKNUM" 			property="rankNum" 		/>
+		<result column="SYSTYPE" 			property="sysType" 		/>
+		<result column="CREATETIME" 			property="createTime" 		/>
+		
+	</resultMap>
+	
+	<sql id="columnListAll">
+		PRIZEID,PRIZETEMPID,ALLMIN,ALLMAX,PERCENT,RANKNO,RANKNUM,SYSTYPE,CREATETIME
+	</sql>
+	<sql id="insertcolumnListAll">
+		PRIZETEMPID,ALLMIN,ALLMAX,PERCENT,RANKNO,RANKNUM,SYSTYPE,CREATETIME
+	</sql>
+	
+	<insert id="insertPrize" parameterType="prize" keyProperty="prizeID" useGeneratedKeys="true">
+		insert into PRIZE(<include refid="insertcolumnListAll"/>) values(#{prizeTempID},#{allMin},#{allMax},#{percent},#{rankNO},#{rankNum},#{sysType},#{createTime});
+	</insert>
+	
+	<select id="selectPrizeAreaGroup" parameterType="int" resultType="Map">
+		select ALLMIN, ALLMAX from prize where SYSTYPE = #{sysType} group by ALLMIN,ALLMAX
+	</select>
+	
+	<select id="getPrizeByArea" parameterType="Map" resultMap="PrizeResultMap">
+		select 
+			<include refid="columnListAll"/> 
+		from 
+			PRIZE p
+		where 
+			ALLMIN = #{allMin} and ALLMAX = #{allMax} and SYSTYPE = #{sysType}
+		order by
+			RANKNO
+	</select>
+  	
+  	<select id="findAllPrizes" parameterType="int" resultMap="PrizeResultMap">
+  		select 
+  			<include refid="columnListAll"/> 
+  		from 
+  			PRIZE p
+  		where 
+  			SYSTYPE = #{sysType}
+  		order by 
+  			PRIZEID
+  	</select>
+  	
+	<select id="getPrizeListByPlayerCount" parameterType="Map" resultMap="PrizeResultMap">
+  		select 
+			<include refid="columnListAll"/>
+  		from 
+  			PRIZE p
+  		where
+  			p.ALLMIN &lt;= #{playerCount} and #{playerCount} &lt;= p.ALLMAX and SYSTYPE = #{sysType}
+  		order by RANKNO
+  			
+	</select>
+	<update id="update" parameterType="prize">
+		update prize set rankno = #{rankNO},ranknum=#{rankNum} where prizeid = #{prizeID}
+	</update>
+</mapper>

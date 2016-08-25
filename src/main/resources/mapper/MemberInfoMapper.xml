@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.evsward.server.vo.MemberInfo">
+  
+	<resultMap id="MemberInfoResultMap" type="memberInfo">
+	    <id 	column="MEMID" 				property="memID"			/>
+		<result 	column="NFCID" 				property="uuidLong" 			/>
+		<result column="CARDNO" 			property="cardNO" 		/>
+		<result column="MEMNAME" 			property="memName" 			/>
+		<result column="MEMSTATE" 			property="memState" 		/>
+		<result column="MEMIMAGE" 			property="memImage" 		/>
+		<result column="MEMMOBILE" 			property="memMobile" 		/>
+		<result column="MEMSEX" 			property="memSex" 			/>
+		<result column="MEMIDENTNO" 		property="memIdentNO" 		/>
+		<result column="CHIP" 				property="chip" 	/>
+		<result column="BALANCE" 			property="balance" 		/>
+		<result column="SYSTYPE" 			property="sysType" 		/>
+		<result column="CREATETIME" 		property="createTime" 		/>
+		<result column="UPDATETIME" 		property="updateTime" 			/>
+		<result column="DELTIME" 			property="delTime" 			/>
+	</resultMap>
+	
+	<sql id="columnListAll">
+		MEMID,NFCID,CARDNO,MEMNAME,MEMSTATE,MEMIMAGE,MEMMOBILE,MEMSEX,MEMIDENTNO,CHIP,BALANCE,SYSTYPE,CREATETIME,UPDATETIME,DELTIME
+	</sql>
+	<sql id="insertColumnListAll">
+		NFCID,CARDNO,MEMNAME,MEMSTATE,MEMIMAGE,MEMMOBILE,MEMSEX,MEMIDENTNO,CHIP,BALANCE,SYSTYPE,CREATETIME,UPDATETIME,DELTIME
+	</sql>
+	<sql id="insertInitMemColumn">
+		NFCID,MEMSTATE,CHIP,BALANCE,SYSTYPE,CREATETIME
+	</sql>
+  	<insert id="insert" parameterType="memberInfo" keyProperty="memID" useGeneratedKeys="true">
+  		insert into MEMBERINFO (<include refid="insertColumnListAll"/>) values (
+  			#{uuidLong},#{cardNO},#{memName},#{memState},#{memImage},#{memMobile},#{memSex},#{memIdentNO},#{chip},#{balance},#{sysType},#{createTime},#{updateTime},#{delTime}
+  		)
+  	</insert>
+  	<!-- 
+  	<select id="getMemInfoListInMemIDs" parameterType="Map" resultMap="MemberInfoResultMap">
+  		select 
+  			<include refid="columnListAll"/> 
+  		from 
+  			MEMBERINFO e
+  		where 
+  			MEMID in
+  		<foreach collection="memIDs" close=")" index="0" item="memID" open="(" separator=",">
+  			 #{memID}
+  		</foreach>
+  	</select>
+  	 -->
+  	<select id="selectVagueMemInfo" parameterType="string" resultMap="MemberInfoResultMap">
+  		select 
+  			<include refid="columnListAll"/>
+  		from
+  			MEMBERINFO e
+  		where 
+  			CARDNO = #{memSearchVagueValue} or MEMNAME = #{memSearchVagueValue} or MEMIDENTNO = #{memSearchVagueValue} or MEMMOBILE = #{memSearchVagueValue}
+  	</select>
+  	
+	<select id="getExactMemInfo" parameterType="memberInfo" resultMap="MemberInfoResultMap">
+  		select 
+			<include refid="columnListAll"/>
+  		from 
+  			MEMBERINFO m
+  		<where>
+  			<if test="memID != 0">
+  				m.MEMID = #{memID}
+  			</if>
+  			<if test="uuidLong != 0">
+  				and m.NFCID = #{uuidLong}
+  			</if>
+  			<if test="cardNO != null">
+  				and m.CARDNO = #{cardNO}
+  			</if>
+  			<if test="memIdentNO != null">
+  				and m.MEMIDENTNO = #{memIdentNO}
+  			</if>
+  		</where>
+	</select>
+	
+	<update id="updateMemInfo" parameterType="memberInfo" >
+		update 
+			MEMBERINFO m
+		set
+			m.NFCID = #{uuidLong},
+			m.CARDNO = #{cardNO},
+			m.MEMNAME = #{memName},
+			m.MEMMOBILE = #{memMobile},
+			m.MEMIMAGE = #{memImage},
+			m.memSex = #{memSex},
+			m.MEMIDENTNO = #{memIdentNO},
+			m.UPDATETIME = #{updateTime}
+		where
+			m.memID = #{memID}
+	</update>
+</mapper>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	
+	<!-- 别名 -->
+	<typeAliases>
+		<typeAlias type="com.evsward.server.vo.Employee" alias="employee" />
+		<typeAlias type="com.evsward.server.vo.Role" alias="role" />
+		<typeAlias type="com.evsward.server.vo.Privilege" alias="privilege" />
+		<typeAlias type="com.evsward.server.vo.InitedNFC" alias="initedNFC" />
+		<typeAlias type="com.evsward.server.vo.MemberInfo" alias="memberInfo" />
+		<typeAlias type="com.evsward.server.vo.CompetitionMember" alias="competitionMember" />
+		<typeAlias type="com.evsward.server.vo.Prize" alias="prize" />
+		<typeAlias type="com.evsward.server.vo.Screen" alias="screen" />
+		<typeAlias type="com.evsward.server.vo.CardTable" alias="cardTable" />
+		<typeAlias type="com.evsward.server.vo.CompetitionInfo" alias="competitionInfo" />
+		<typeAlias type="com.evsward.server.vo.RoundTemplate" alias="roundTemplate" />
+		<typeAlias type="com.evsward.server.vo.UnAllotedSeat" alias="unAllotedSeat" />
+		<typeAlias type="com.evsward.server.vo.AllotedSeat" alias="allotedSeat" />
+		<typeAlias type="com.evsward.server.vo.CompRunningPrize" alias="compRunningPrize" />
+		<typeAlias type="com.evsward.server.vo.CompRunningRound" alias="compRunningRound" />
+		<typeAlias type="com.evsward.server.vo.CompMemInfo" alias="compMemInfo" />
+		<typeAlias type="com.evsward.server.vo.AdvertInfo" alias="advertInfo" />
+		<typeAlias type="com.evsward.server.vo.AdvertCompRelation" alias="advertCompRelation" />
+		<typeAlias type="com.evsward.server.vo.Round" alias="round" />
+		<typeAlias type="com.evsward.server.vo.LockTable" alias="lockTable"/>
+		<typeAlias type="com.evsward.server.vo.CompMovedSeatLog" alias="compMovedSeatLog" />
+		<typeAlias type="com.evsward.server.vo.CompImportLog" alias="compImportLog" />
+		<typeAlias type="com.evsward.server.vo.tcpmsg.MsgCmd" alias="msgCmd" />
+		<typeAlias type="com.evsward.server.vo.tcpmsg.MsgPushFunction" alias="msgPushFunction" />
+	</typeAliases>
+
+	<plugins>
+		<plugin	interceptor="com.dance.core.orm.mybatis.DiclectStatementHandlerInterceptor" />
+		<plugin	interceptor="com.dance.core.orm.mybatis.DiclectResultSetHandlerInterceptor" />
+	</plugins>
+	
+</configuration>
+

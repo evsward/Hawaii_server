@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.evsward.server.vo.Round">
+  
+	<resultMap id="roundResultMap" type="round">
+		<id 	column="BLINDID" 			property="blindID"				/>
+		<result column="ROUNDTEMPID" 		property="roundTempID" 		/>
+		<result column="ROUNDSTATUS" 		property="roundState" 			/>
+	    <result column="BIGBLIND" 			property="bigBlind" 		/>
+	    <result column="SMALLBLIND" 		property="smallBlind"	/>
+		<result column="BEFORECHIP" 		property="beforeChip" 	/>
+		<result column="ROUNDRANK" 			property="roundrank" 			/>
+		<result column="ROUNDTYPE" 			property="roundType" 			/>
+		<result column="STEPLEN"			property="stepLen"			/>
+		<result column="SYSTYPE" 			property="sysType" 			/>
+	</resultMap>
+	
+	<sql id="columnListAll">
+		BLINDID,ROUNDTEMPID,ROUNDSTATUS,BIGBLIND,SMALLBLIND,BEFORECHIP,ROUNDRANK,ROUNDTYPE,STEPLEN,SYSTYPE
+	</sql>
+	<sql id="insertcolumnListAll">
+		ROUNDTEMPID,ROUNDSTATUS,BIGBLIND,SMALLBLIND,BEFORECHIP,ROUNDRANK,ROUNDTYPE,STEPLEN,SYSTYPE
+	</sql>
+	
+	<select id="getRoundByRankAndTempID" parameterType="Map" resultMap="roundResultMap">
+		select 
+			<include refid="columnListAll"/>
+		from 
+			ROUND
+		where 
+			ROUNDTEMPID = #{roundTempID} and ROUNDRANK = #{roundRank} and ROUNDTYPE = #{roundType}
+	</select>
+	<select id="getNextRound_Serv" parameterType="Map" resultMap="roundResultMap">
+		select 
+			<include refid="columnListAll"/>
+		from 
+			ROUND
+		where 
+			ROUNDTEMPID = #{roundTempID} and (ROUNDRANK = #{curRank} or ROUNDRANK = #{nextRank}) 
+		order by 
+			ROUNDRANK asc, ROUNDTYPE desc
+	</select>
+	<select id="getRoundListByTempID" parameterType="int" resultMap="roundResultMap">
+		select 
+			<include refid="columnListAll"/>
+		from 
+			ROUND
+		where 
+			ROUNDTEMPID = #{roundTempID}
+		order by 
+			ROUNDRANK asc, ROUNDTYPE desc
+	</select>
+</mapper>

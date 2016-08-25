@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.evsward.server.vo.Screen">
+
+	<resultMap type="screen" id="screenResultMap">
+		<id column="DEVIMEI" property="devImei"/>
+		<result column="COMPID" property="compID"/>
+		<result column="IP" property="ip"/>
+		<result column="DEVNAME" property="devName"/>
+		<result column="DEVSTATE" property="devState"/>
+		<result column="PUSHTYPE" property="pushType"/>
+		<result column="COMPNAME" property="compName"/>
+		<result column="LANGUAGE" property="language"/>
+		<result column="SYSTYPE" property="sysType"/>
+		<result column="CREATETIME" property="createTime"/>
+		<result column="UPDATETIME" property="updateTime"/>
+	</resultMap>
+
+	<sql id="columnAll">
+		DEVIMEI, COMPID, IP, DEVNAME, DEVSTATE, PUSHTYPE, COMPNAME, LANGUAGE, SYSTYPE, CREATETIME, UPDATETIME
+	</sql>
+	<sql id="insertcolumnAll">
+		DEVIMEI, COMPID, IP, DEVNAME, DEVSTATE, PUSHTYPE, SYSTYPE, LANGUAGE, CREATETIME
+	</sql>
+	
+	<select id="findAll" resultMap="screenResultMap" parameterType="int">
+		select 
+			<include refid="columnAll"/>
+		from
+			SCREEN s
+		where 
+			SYSTYPE = #{sysType}
+		order by CREATETIME 
+	</select>
+	
+	<select id="findScreenByImei" resultMap="screenResultMap" parameterType="string">
+		select 
+			<include refid="columnAll"/>
+		from
+			SCREEN s
+		where 
+			s.DEVIMEI = #{devImei}
+	</select>
+	
+	<update id="updateScreenOffline" parameterType="Map">
+		update SCREEN set DEVSTATE=#{devState}, UPDATETIME=#{updateTime} where DEVIMEI = #{devImei}
+	</update>
+	
+	<insert id="insertScreen" parameterType="screen">
+		insert into SCREEN(<include refid="insertcolumnAll"/>) values (#{devImei}, #{compID}, #{ip}, #{devName}, #{devState}, #{pushType}, #{sysType}, #{language}, #{createTime});
+	</insert>
+	<!-- pad上编辑大屏幕设备 -->
+	<update id="updateScreenOnPad" parameterType="screen">
+		update SCREEN set COMPID=#{compID}, DEVNAME=#{devName}, PUSHTYPE=#{pushType}, COMPNAME=#{compName}, LANGUAGE=#{language}, UPDATETIME=#{updateTime} where DEVIMEI = #{devImei}
+	</update>
+	
+	<!-- 大屏幕设备连接上后，更新ip和devState -->
+	<update id="updateScreenAuto" parameterType="screen">
+		update SCREEN set IP=#{ip}, DEVSTATE=#{devState}, UPDATETIME=#{updateTime} where DEVIMEI = #{devImei}
+	</update>
+	<!-- 系统启动初始化所有大屏幕设备为断线 -->
+	<update id="updateNoOnline" parameterType="screen">
+		update SCREEN set DEVSTATE = 0
+	</update>
+</mapper>

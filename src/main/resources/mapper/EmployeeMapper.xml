@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.evsward.server.vo.Employee">
+  
+	<resultMap id="EmployeeResultMap" type="employee">
+	    <id 	column="EMPID" 				property="empID"			/>
+		<result column="EMPUUID" 			property="empUUID" 			/>
+		<result column="EMPNFCID" 			property="nfcIdLong" 		/>
+		<result column="EMPNAME" 			property="empName" 			/>
+		<result column="EMPSTATE" 			property="empState" 		/>
+		<result column="EMPMOBILE" 			property="empMobile" 		/>
+		<result column="EMPIMAGE" 			property="empImage" 		/>
+		<result column="SYSTYPE" 			property="sysType" 			/>
+		<result column="EMPIDENTNO" 		property="empIdentNo" 		/>
+		<result column="EMPIDENTTYPE" 		property="empIdentType" 	/>
+		<result column="PASSWORD" 			property="password" 		/>
+		<result column="CREATETIME" 		property="createTime" 		/>
+		<result column="UPDATETIME" 		property="updateTime" 		/>
+		<result column="DELTIME" 			property="delTime" 			/>
+	</resultMap>
+	
+	<sql id="columnListAll">
+		EMPID,EMPUUID,EMPNFCID,EMPNAME,EMPSTATE,EMPMOBILE,EMPIMAGE,SYSTYPE,EMPIDENTNO,EMPIDENTTYPE,PASSWORD,CREATETIME,UPDATETIME,DELTIME
+	</sql>
+	<sql id="insertColumnListAll">
+		EMPUUID,EMPNFCID,EMPNAME,EMPSTATE,EMPMOBILE,EMPIMAGE,SYSTYPE,EMPIDENTNO,EMPIDENTTYPE,PASSWORD,CREATETIME
+	</sql>
+  	
+	<select id="getEnableEmployeeByempUUID" parameterType="string" resultMap="EmployeeResultMap">
+  		select 
+			<include refid="columnListAll"></include>
+  		from 
+  			Employee e
+  		where 
+  			e.EMPUUID = #{empUUID} and e.EMPSTATE = 1 and e.SYSTYPE = 1
+	</select>
+	
+	<insert id="insert" parameterType="employee">
+		insert 
+		into 
+			Employee(<include refid="insertColumnListAll"/>) 
+			values(#{empUUID}, #{nfcIdLong}, #{empName}, 1, "", "", 1, "", 1, "", #{createTime})
+	</insert>
+</mapper>

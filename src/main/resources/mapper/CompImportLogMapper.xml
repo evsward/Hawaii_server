@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.evsward.server.vo.CompImportLog">
+  
+	<resultMap id="CompImportLogResultMap" type="compImportLog">
+		<id 	column="SOURCECOMPID" 			property="sourceCompID"		/>
+	    <result column="DESTCOMPID" 			property="destCompID" 		/>
+	    <result column="IMPORTTIME" 			property="importTime" 	/>
+	    <result column="EMPUUID" 				property="empUuid"	/>
+	</resultMap>
+	
+	<sql id="columnListAll">
+		SOURCECOMPID, DESTCOMPID, IMPORTTIME, EMPUUID
+	</sql>
+	
+	<insert id="insert" parameterType="compImportLog">
+		insert into COMPIMPORTLOG values(#{sourceCompID}, #{destCompID}, #{importTime}, #{empUuid})
+	</insert>
+  	
+	<select id="getSourceCompImportedLog" parameterType="Map" resultMap="CompImportLogResultMap">
+		select 
+			<include refid="columnListAll"/>
+		from 
+			COMPIMPORTLOG
+		where 
+		<foreach collection="sourceCompIDArr" close=")" index="0" item="sourceCompID" open="(" separator="or">
+			SOURCECOMPID = #{sourceCompID}
+		</foreach>
+	</select>
+	
+	<select id="getDestCompImportedLog" parameterType="int" resultMap="CompImportLogResultMap">
+		select 
+			<include refid="columnListAll"/>
+		from 
+			COMPIMPORTLOG
+		where 
+			DESTCOMPID = #{destCompID}
+	</select>
+	
+</mapper>

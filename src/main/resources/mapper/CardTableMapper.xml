@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.evsward.server.vo.CardTable">
+  
+	<resultMap id="CardTableResultMap" type="cardTable">
+		<id 	column="TABLENO" 			property="tableNO"		/>
+	    <result column="COMPID" 			property="compID" 		/>
+	    <result column="COMPNAME" 			property="compName" 	/>
+	    <result column="TABLESTATE" 		property="tableState"	/>
+		<result column="UUIDDECIMAL" 		property="uuidLong" 	/>
+		<result column="ADDRESS" 			property="address" 		/>
+		<result column="SYSTYPE" 			property="sysType" 		/>
+	</resultMap>
+	
+	<sql id="columnListAll">
+		TABLENO,COMPID,COMPNAME,TABLESTATE,UUIDDECIMAL,ADDRESS,SYSTYPE
+	</sql>
+	
+	<insert id="insert" parameterType="cardTable">
+		insert into CARDTABLE values(#{tableNO}, #{compID}, #{compName}, #{tableState}, #{uuidLong}, #{address}, #{sysType})
+	</insert>
+  	
+	<select id="findAll" resultMap="CardTableResultMap" parameterType="int">
+  		select 
+			<include refid="columnListAll"/>
+  		from 
+  			CARDTABLE
+  		 where 
+  		 	SYSTYPE = #{sysType}
+	</select>
+	
+	<select id="findAllUsedTables" parameterType="int" resultMap="CardTableResultMap">
+		select 
+			<include refid="columnListAll"/>
+  		from 
+  			CARDTABLE
+  		 where 
+  		 	SYSTYPE = #{sysType} and TABLESTATE = 1
+	</select>
+	
+	<delete id="delAll" parameterType="int">
+		delete 
+		from 
+			CARDTABLE 
+		where 
+			SYSTYPE = #{sysType}
+	</delete>
+	
+	<select id="getTablesByCompID" parameterType="int" resultMap="CardTableResultMap">
+		select 
+			<include refid="columnListAll"/>
+		from 
+			CARDTABLE
+		where 
+			COMPID = #{compID} and TABLESTATE = 1
+	</select>
+	
+	<select id="getAllIdleTables" parameterType="int" resultMap="CardTableResultMap">
+		select 
+			<include refid="columnListAll"/>
+		from 
+			CARDTABLE
+		where 
+			SYSTYPE = #{sysType} and and TABLESTATE = 0
+	</select>
+	
+	<select id="getCompUsedAndIdleTables" parameterType="Map" resultMap="CardTableResultMap">
+		select 
+			<include refid="columnListAll"/>
+		from 
+			CARDTABLE
+		where 
+			((COMPID = #{compID} and TABLESTATE = 1) or TABLESTATE = 0) and SYSTYPE = #{sysType}
+		order by TABLENO
+	</select>
+	
+	<select id="getTableByTableNO" parameterType="int" resultMap="CardTableResultMap">
+		select 
+			<include refid="columnListAll"/>
+		from 
+			CARDTABLE
+		where 
+			TABLENO = #{tableNO}
+		order by TABLENO
+	</select>
+	
+	<update id="releaseCompTables" parameterType="int">
+		update CARDTABLE set TABLESTATE = 0, COMPID = 0, COMPNAME = '' where COMPID = #{compID}
+	</update>
+	
+	<update id="releaseCompTable" parameterType="Map">
+		update CARDTABLE set TABLESTATE = 0, COMPID = 0, COMPNAME = '' where TABLENO = #{tableNO} and COMPID = #{compID}
+	</update>
+	
+	<update id="openTablesByCompID" parameterType="Map">
+		update 
+			CARDTABLE set TABLESTATE = 1, COMPID = #{compID} ,COMPNAME = #{compName} 
+		where 
+			TABLESTATE = 0 and 
+			<foreach collection="list" index="index" item="item" open="(" close=")" separator="or">
+				TABLENO = #{item}
+			</foreach>
+	</update>
+	
+	<delete id="delUnAllotedSeatsByTableNO" parameterType="int">
+		delete from
+			CARDTABLE
+		where 
+			TABLENO = #{tableNO}
+	</delete>
+	
+</mapper>

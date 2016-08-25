@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.evsward.server.vo.CompMovedSeatLog">
+  
+	<resultMap id="CompMovedSeatLogResultMap" type="compMovedSeatLog">
+		<id 		column="LOGID" 			property="logID"		/>
+		<result 	column="COMPID" 		property="compID" 		/>
+		<result 	column="MEMID" 			property="memID" 		/>
+		<result 	column="OLDTABLENO" 	property="oldTableNO"	/>
+	    <result 	column="OLDSEATNO" 		property="oldSeatNO"	/>
+		<result 	column="EMPUUID" 		property="empUuid"		/>
+		<result 	column="NEWTABLENO" 	property="newTableNO" 	/>
+		<result 	column="NEWSEATNO" 		property="newSeatNO" 	/>
+		<result 	column="OPTYPE" 		property="opType" 		/>
+		<result 	column="CREATETIME" 	property="createTime" 	/>
+		<result 	column="SYSTYPE" 		property="sysType" 		/>
+	</resultMap>
+	<resultMap id="CompMovedSeatLogMemResultMap" type="compMovedSeatLog">
+		<id 		column="LOGID" 			property="logID"		/>
+		<result 	column="COMPID" 		property="compID" 		/>
+		<result 	column="MEMID" 			property="memID" 		/>
+		<result 	column="MEMSEX" 		property="memSex" 		/>
+		<result 	column="MEMNAME" 		property="memName" 		/>
+		<result 	column="CARDNO" 		property="cardNO" 		/>
+		<result 	column="OLDTABLENO" 	property="oldTableNO"	/>
+	    <result 	column="OLDSEATNO" 		property="oldSeatNO"	/>
+		<result 	column="EMPUUID" 		property="empUuid"		/>
+		<result 	column="NEWTABLENO" 	property="newTableNO" 	/>
+		<result 	column="NEWSEATNO" 		property="newSeatNO" 	/>
+		<result 	column="OPTYPE" 		property="opType" 		/>
+		<result 	column="CREATETIME" 	property="createTime" 	/>
+		<result 	column="SYSTYPE" 		property="sysType" 		/>
+	</resultMap>
+	
+	<sql id="columnListAll">
+		LOGID,COMPID,chl.MEMID,OLDTABLENO,OLDSEATNO,EMPUUID,NEWTABLENO,NEWSEATNO,OPTYPE,chl.CREATETIME,chl.SYSTYPE
+	</sql>
+	<sql id="columnListAllMem">
+		LOGID,COMPID,chl.MEMID,MEMSEX,MEMNAME,CARDNO,OLDTABLENO,OLDSEATNO,EMPUUID,NEWTABLENO,NEWSEATNO,OPTYPE,chl.CREATETIME,chl.SYSTYPE
+	</sql>
+	<sql id="insertcolumnListAll">
+		COMPID,MEMID,OLDTABLENO,OLDSEATNO,EMPUUID,NEWTABLENO,NEWSEATNO,OPTYPE,CREATETIME,SYSTYPE
+	</sql>
+	
+	<insert id="insert" parameterType="compMovedSeatLog" useGeneratedKeys="true" keyProperty="id">
+		insert into COMPMOVEDSEATLOG(<include refid="insertcolumnListAll"/>) values(#{compID}, #{memID}, #{oldTableNO}, #{oldSeatNO}, #{empUuid}, #{newTableNO}, #{newSeatNO}, #{opType}, #{createTime}, #{sysType})
+	</insert>
+  	
+  	<select id="getBurstTableHistoryLog" parameterType="int" resultMap="CompMovedSeatLogMemResultMap">
+  		select 
+			<include refid="columnListAllMem"/>
+		from 
+			COMPMOVEDSEATLOG chl left join MEMBERINFO m on chl.MEMID = m.MEMID
+		where 
+			COMPID = #{compID} and OPTYPE = 1
+		order by 
+			CREATETIME desc
+  	</select>
+  	
+  	<select id="getBalanceHistoryLog" parameterType="int" resultMap="CompMovedSeatLogMemResultMap">
+  		select 
+			<include refid="columnListAllMem"/>
+		from 
+			COMPMOVEDSEATLOG chl left join MEMBERINFO m on chl.MEMID = m.MEMID
+		where 
+			COMPID = #{compID} and OPTYPE = 2
+		order by 
+			CREATETIME desc
+  	</select>
+</mapper>

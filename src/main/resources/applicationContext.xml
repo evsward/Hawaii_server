@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jaxrs="http://cxf.apache.org/jaxrs" 
+	xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd 
+	http://cxf.apache.org/jaxrs
+	http://cxf.apache.org/schemas/jaxrs.xsd
+	http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">	
+
+	<description>Spring公共配置文件 </description>
+
+	<!-- 注解探测器 ， 在JUnit测试的时候需要-->
+	<context:component-scan base-package="com.evsward.server"/>
+	<context:property-placeholder location="classpath*:/application-server.properties" ignore-unresolvable="true"/>
+	<context:property-placeholder location="classpath*:/application-product.properties" ignore-unresolvable="true"/>
+	
+	<!-- <import resource="classpath*:/quartz.xml"/> -->
+
+	<!-- ============================== 数据库配置 ==================================== -->	
+	<!-- 配置DataSource数据源 -->
+			
+	<!-- 配置hi数据源 -->
+	<bean id="hi" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<!-- Connection Info -->
+		<property name="driverClassName" value="${hi.jdbc.driver}" />
+		<property name="url" value="${hi.jdbc.url}" />
+		<property name="username" value="${hi.jdbc.username}" />
+		<property name="password" value="${hi.jdbc.password}" />
+		
+		<!-- Connection Pooling Info --> 
+		<property name="maxActive" value="${hi.poolInfo.maxActive}"/>  
+		<property name="minIdle" value="${hi.poolInfo.minIdle}"/>  
+		<property name="maxIdle" value="${hi.poolInfo.maxIdle}"/>  
+		<property name="initialSize" value="${hi.poolInfo.initialSize}"/>  
+		<!-- 设置在自动回收超时连接的时候打印连接的超时错误  -->  
+		<property name="logAbandoned" value="${hi.poolInfo.logAbandoned}"/>  
+		<!-- 设置自动回收超时连接 -->  
+		<property name="removeAbandoned"  value="${hi.poolInfo.removeAbandoned}"/>  
+		<!-- 超时时间(以秒数为单位) -->  
+		<property name="removeAbandonedTimeout" value="${hi.poolInfo.removeAbandonedTimeout}"/>  
+		<!-- 超时等待时间以毫秒为单位  -->  
+		<property name="maxWait" value="${hi.poolInfo.maxWait}"/>
+		<property name="testOnBorrow" value="true"/>
+		<property name="validationQuery" value="select 1 from dual"/>
+	</bean>
+		
+	<bean id="dataSource" class="com.dance.core.orm.DynamicDataSource"> 
+		<property name="targetDataSources"> 
+			<map key-type="java.lang.String">
+				<entry value-ref="hi" key="hi"></entry> 
+			</map> 
+		</property> 
+		<property name="defaultTargetDataSource" ref="hi"></property>
+	</bean> 
+	
+	<!-- StatementHandler的Interceptor -->
+	<bean id="diclectStatementHandlerInterceptor" class="com.dance.core.orm.mybatis.DiclectStatementHandlerInterceptor" init-method="init"> 
+		<!-- 是否支持多数据源,如果支持多数据源，supportMultiDS属性值为true，DIALECT属性不需要设置 -->
+		<property name="supportMultiDS" value="true" />
+		
+		<property name="DIALECT" value="com.dance.core.orm.mybatis.dialect.impl.MySQLDialect" />
+		<!--
+			<property name="DIALECT" value="com.dance.core.orm.mybatis.dialect.impl.OracleDialect" />
+			--> 		
+	</bean>
+
+	<!-- ================================ MyBatis SqlSession配置 ========================================= -->
+	<!-- 使用SqlSessionFactoryBean工厂产生SqlSession对象，方便后期注入Dao -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="configLocation" value="classpath:/mapper/baseConfig.xml" />
+		<property name="mapperLocations" value="classpath:/mapper/*Mapper.xml" />
+	</bean>
+
+	
+    
+	<!-- SpringContextUtils定义 -->
+	<bean id="springContextUtils" class="com.dance.core.utils.spring.SpringContextUtils" lazy-init="false"/>
+
+	<!-- ================================= 事务控制相关 ============================================= -->
+	<bean id="transactionManager" name="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="delete*" propagation="REQUIRED" read-only="false"
+				rollback-for="java.lang.Exception" no-rollback-for="java.lang.RuntimeException" />
+			<tx:method name="insert*" propagation="REQUIRED" read-only="false"
+				rollback-for="java.lang.RuntimeException" />
+			<tx:method name="update*" propagation="REQUIRED" read-only="false"
+				rollback-for="java.lang.Exception" />
+
+			<tx:method name="find*" propagation="SUPPORTS" />
+			<tx:method name="get*" propagation="SUPPORTS" />
+			<tx:method name="select*" propagation="SUPPORTS" />
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config>
+		<aop:pointcut id="pc" expression="execution(* *.*.*(..))" />
+		<aop:advisor pointcut-ref="pc" advice-ref="txAdvice"></aop:advisor>
+	</aop:config>
+	
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
+	<bean id="hiSystemConsts" class="com.evsward.server.util.HISysProp">
+		<property name="propParams">
+			<map>
+				<entry key="app.version">
+					<value>1.2</value>
+				</entry>
+				<entry key="screen.topic.cn">
+					<value>2015中国（三亚）扑克游戏锦标赛</value>
+				</entry>
+				<entry key="screen.topic.en">
+					<value>2015 China (Sanya) Poker Tournament</value>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	<bean id="systemInit" class="com.evsward.server.init.SystemInit" lazy-init="false" init-method="init"/>
+	
+	<import resource="classpath*:/applicationContext-hinetty.xml" />
+	
+</beans>

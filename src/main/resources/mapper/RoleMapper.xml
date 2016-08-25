@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.evsward.server.vo.Role">
+    
+    <resultMap type="role" id="RoleResultMap">
+        <id 	column="ROLEID" 			property="roleID"			/>
+        <result column="ROLENAME" 			property="roleName" 		/>
+		<result column="ROLESTATE" 			property="roleState" 		/>
+		<result column="ROLEDESC" 			property="roleDesc" 		/>
+		<result column="ROLENAMESHOW" 		property="roleNameShow" 	/>
+		<result column="SYSTYPE" 			property="sysType" 			/>
+		<result column="CREATETIME" 		property="createTime" 		/>
+		<result column="UPDATETIME" 		property="updateTime" 		/>
+		<result column="DELTIME" 			property="delTime" 			/>
+    </resultMap>
+
+    <sql id="columnListAll">
+		r.ROLEID,ROLENAME,ROLESTATE,ROLEDESC,ROLENAMESHOW,r.SYSTYPE,CREATETIME,UPDATETIME,DELTIME
+    </sql>
+    
+    <select id="getEnableRolesByempID" parameterType="Map" resultMap="RoleResultMap">
+        select  
+        	<include refid="columnListAll"/>
+        from 
+        	EMP_ROLE_RELATION ERR left join ROLE r on err.ROLEID = r.ROLEID
+        where 
+        	err.EMPID = #{empID} and r.ROLESTATE = 1 and r.SYSTYPE = #{sysType}
+    </select>
+</mapper>
