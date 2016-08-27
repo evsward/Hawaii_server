@@ -48,8 +48,8 @@
 		<!-- netty-server begin -->
 		<dependency>
 			<groupId>com.netty</groupId>
-			<artifactId>netty-server</artifactId>
-			<version>1.1-SNAPSHOT</version>
+			<artifactId>netty-core-server</artifactId>
+			<version>1.0.2.RELEASE</version>
 		</dependency>
 		<!-- netty-server end -->
 		
