@@ -14,7 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.evsward.server.netty.cache.HIChannelCache;
-import com.evsward.server.protobuf.WptMessage.WptAckMessage;
+import com.evsward.server.protobuf.HIMessage.HIAckMessage;
 import com.evsward.server.util.Application;
 import com.evsward.server.vo.tcpmsg.triggmsg.SystemBasePushTriggMsg;
 
@@ -29,7 +29,7 @@ public abstract class PushMsg2TerminalService implements Runnable{
 	protected String thrdDesc;
 	//消息队列
 	protected BlockingQueue<SystemBasePushTriggMsg> msgQueue = new LinkedBlockingDeque<SystemBasePushTriggMsg>();
-	//<channelId, WptChannelCache>,接收该消息的客户端连接Channel
+	//<channelId, HIChannelCache>,接收该消息的客户端连接Channel
 	protected ConcurrentHashMap<Integer, HIChannelCache> onlineChannelMap = new ConcurrentHashMap<Integer, HIChannelCache>();
 
 	/**
@@ -72,7 +72,7 @@ public abstract class PushMsg2TerminalService implements Runnable{
 	 * @param ack
 	 * @return
 	 */
-	protected ChannelBuffer encode(HIChannelCache hi, WptAckMessage.Builder ack){
+	protected ChannelBuffer encode(HIChannelCache hi, HIAckMessage.Builder ack){
 		byte[] body = ack.build().toByteArray();
 		ChannelBuffer result = ChannelBuffers.buffer(ByteOrder.LITTLE_ENDIAN, 12 + body.length);
 		int ackCommandId = hi.getCommandId() | 0x08000000; 
@@ -128,7 +128,7 @@ public abstract class PushMsg2TerminalService implements Runnable{
 		this.thrdDesc = thrdDesc;
 	}
 	
-//	public void closeChannel(WptChannelCache hiCache){
+//	public void closeChannel(HIChannelCache hiCache){
 //	try{
 //		if(hiCache != null){
 //			Channels.close(hiCache.getChannel());

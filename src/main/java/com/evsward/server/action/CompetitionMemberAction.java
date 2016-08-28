@@ -69,7 +69,7 @@ public class CompetitionMemberAction extends StrutsAction<CompetitionMember, Int
 	private MemberManageFacade memManageFacade;
 	//会员ID
 	private int memID;
-	private int sysType;//系统类型：1、WPT；2、智运会
+	private int sysType;//系统类型：1、HI；2、智运会
 	private String empUuid;
 
 	

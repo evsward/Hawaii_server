@@ -296,7 +296,7 @@ public class CompetitionListAction extends StrutsAction<CompetitionInfo, Integer
 	private int compType;
 	//牌桌类型：10、十人桌；9、九人桌；6、六人桌
 	private int tableType;
-	private int sysType;//系统类型：1、WPT；2、智运会
+	private int sysType;//系统类型：1、HI；2、智运会
 	//是否带入奖励表，1、带入；0、不带入
 	private int aword;
 	//是否使用分座系统：1、使用；0、不适用

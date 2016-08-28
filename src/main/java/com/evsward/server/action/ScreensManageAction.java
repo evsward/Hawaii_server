@@ -189,6 +189,6 @@ public class ScreensManageAction extends StrutsAction<Screen, Integer> {
 	private int pushType = 0;
 	private int compID;
 	private int language;
-	private int sysType;//系统类型：1、WPT；2、智运会
+	private int sysType;//系统类型：1、HI；2、智运会
 	private String empUuid;
 }

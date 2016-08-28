@@ -89,7 +89,7 @@ public class PrizeAction extends StrutsAction<Prize, Integer> {
 
 	@Action("dealPrize")
 	public String dealPrizes()throws Exception{
-		String filePath = "D:\\netty work\\Wpt赛事\\hi赛事系统设计\\数据sql\\init_sql\\prize_init_end.sql";
+		String filePath = "D:\\netty work\\HI赛事\\hi赛事系统设计\\数据sql\\init_sql\\prize_init_end.sql";
 		File file = new File(filePath);
 		FileReader fr = new FileReader(file);
 		BufferedReader br = new BufferedReader(fr);

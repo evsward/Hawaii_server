@@ -9,9 +9,9 @@ import org.springframework.stereotype.Component;
 import com.dance.core.utils.encode.JsonBinder;
 import com.evsward.server.facade.ScreenManageFacade;
 import com.evsward.server.netty.cache.DevManageCache;
-import com.evsward.server.protobuf.WptMessage.WptAckMessage;
-import com.evsward.server.protobuf.WptMessage.WptReqMessage;
-import com.evsward.server.protobuf.WptMessage.WptAckMessage.Builder;
+import com.evsward.server.protobuf.HIMessage.HIAckMessage;
+import com.evsward.server.protobuf.HIMessage.HIReqMessage;
+import com.evsward.server.protobuf.HIMessage.HIAckMessage.Builder;
 import com.evsward.server.thread.PushMsg2TerminalService;
 import com.evsward.server.util.Application;
 import com.evsward.server.util.RspCodeValue;
@@ -26,14 +26,14 @@ import com.netty.server.tcp.handler.ProtobufMessageHandler;
  */
 @Component
 @CommandIdBasedPolicy(501)
-public class ManageScreenHandler implements ProtobufMessageHandler<WptReqMessage,WptAckMessage.Builder> {
+public class ManageScreenHandler implements ProtobufMessageHandler<HIReqMessage,HIAckMessage.Builder> {
 
 	private static Logger logger = LoggerFactory.getLogger(ManageScreenHandler.class);
 	
 	@Resource
 	private ScreenManageFacade screenFacade;
 
-	public Builder execute(ServerContext serverContext, WptReqMessage reqMsg){
+	public Builder execute(ServerContext serverContext, HIReqMessage reqMsg){
 		String reqJson = reqMsg.getJsonReqMsg();//获取请求的json数据串
 		logger.info("ManageScreenHandler.reqJson = " + reqJson);
 		//缓存Channel
@@ -41,7 +41,7 @@ public class ManageScreenHandler implements ProtobufMessageHandler<WptReqMessage
 		String sysTypeStr = JsonBinder.getValue(JsonBinder.JSONObject, reqJson, Application.JSONKEY_SYSTYPE);
 		int sysType = Integer.parseInt(sysTypeStr);
 		TcpServerContext tcpContext = (TcpServerContext)serverContext;
-		WptAckMessage.Builder result = WptAckMessage.newBuilder();
+		HIAckMessage.Builder result = HIAckMessage.newBuilder();
 		String jsonRes = "";
 		PushMsg2TerminalService pushMsgService = Application.pushMsg2TermServiceMap.get(Application.MSGTYPE.PADDEVIMAN);
 		if(pushMsgService == null){
@@ -57,7 +57,7 @@ public class ManageScreenHandler implements ProtobufMessageHandler<WptReqMessage
 	public Builder defaultFailedResponse(ServerContext arg0, Throwable throwable, String errorMsg) {
 		String jsonRes = "";
 		logger.error("---------------ManageScreenHandler.defaultFailedResponse");
-		WptAckMessage.Builder result = WptAckMessage.newBuilder();
+		HIAckMessage.Builder result = HIAckMessage.newBuilder();
 		jsonRes = HIUtil.toJsonNormalField(HIUtil.createJsonResInitMap(RspCodeValue.$301.getRspCode(), RspCodeValue.$301.getMsg()));
 		result.setJsonAckMsg(jsonRes);
 		return result;

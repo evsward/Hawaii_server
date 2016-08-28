@@ -117,7 +117,7 @@ public class MemRegAction extends StrutsAction<MemReg_CompSearch_Day, Integer> {
 	private int compID;
 	private int tableNO;
 	private int seatNO;
-	private int sysType;//系统类型：1、WPT；2、智运会
+	private int sysType;//系统类型：1、HI；2、智运会
 	private String empUuid;
 	
 }

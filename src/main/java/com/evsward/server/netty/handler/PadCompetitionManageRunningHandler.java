@@ -10,9 +10,9 @@ import org.springframework.stereotype.Component;
 import com.dance.core.utils.encode.JsonBinder;
 import com.evsward.server.facade.CompetitionManageFacade;
 import com.evsward.server.netty.cache.CompManageCache;
-import com.evsward.server.protobuf.WptMessage.WptAckMessage;
-import com.evsward.server.protobuf.WptMessage.WptReqMessage;
-import com.evsward.server.protobuf.WptMessage.WptAckMessage.Builder;
+import com.evsward.server.protobuf.HIMessage.HIAckMessage;
+import com.evsward.server.protobuf.HIMessage.HIReqMessage;
+import com.evsward.server.protobuf.HIMessage.HIAckMessage.Builder;
 import com.evsward.server.thread.PushMsg2TerminalService;
 import com.evsward.server.util.Application;
 import com.evsward.server.util.RspCodeValue;
@@ -27,7 +27,7 @@ import com.netty.server.tcp.handler.ProtobufMessageHandler;
  */
 @Component
 @CommandIdBasedPolicy(504)
-public class PadCompetitionManageRunningHandler implements ProtobufMessageHandler<WptReqMessage,WptAckMessage.Builder>{
+public class PadCompetitionManageRunningHandler implements ProtobufMessageHandler<HIReqMessage,HIAckMessage.Builder>{
 
 	private static Logger logger = LoggerFactory.getLogger(PadCompetitionManageRunningHandler.class);
 	
@@ -38,14 +38,14 @@ public class PadCompetitionManageRunningHandler implements ProtobufMessageHandle
 	public Builder defaultFailedResponse(ServerContext serverContext, Throwable throwable, String errorMessage) {
 		String jsonRes = "";
 		logger.error("---------------PadCompetitionManageRunningHandler.defaultFailedResponse");
-		WptAckMessage.Builder result = WptAckMessage.newBuilder();
+		HIAckMessage.Builder result = HIAckMessage.newBuilder();
 		jsonRes = HIUtil.toJsonNormalField(HIUtil.createJsonResInitMap(RspCodeValue.$424.getRspCode(), RspCodeValue.$424.getMsg()));
 		result.setJsonAckMsg(jsonRes);
 		return result;
 	}
 
 	@Override
-	public Builder execute(ServerContext serverContext, WptReqMessage reqMsg) {
+	public Builder execute(ServerContext serverContext, HIReqMessage reqMsg) {
 		int compID = 0;
 		String reqJson = reqMsg.getJsonReqMsg();//获取请求的json数据串
 		logger.info("PadCompetitionManageRunningHandler.reqJson = " + reqJson);
@@ -55,7 +55,7 @@ public class PadCompetitionManageRunningHandler implements ProtobufMessageHandle
 			compID = Integer.parseInt(compIDStr.trim());
 		}
 		TcpServerContext tcpContext = (TcpServerContext)serverContext;
-		WptAckMessage.Builder result = WptAckMessage.newBuilder();
+		HIAckMessage.Builder result = HIAckMessage.newBuilder();
 		String jsonRes = "";
 		PushMsg2TerminalService pushMsgService = Application.pushMsg2TermServiceMap.get(Application.MSGTYPE.PADCOMPPROC);
 		if(pushMsgService == null){

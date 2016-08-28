@@ -7,7 +7,7 @@ import com.dance.core.utils.web.SpringContextUtils;
 import com.evsward.server.facade.ScreenManageFacade;
 import com.evsward.server.netty.cache.DevManageCache;
 import com.evsward.server.netty.cache.HIChannelCache;
-import com.evsward.server.protobuf.WptMessage.WptAckMessage;
+import com.evsward.server.protobuf.HIMessage.HIAckMessage;
 import com.evsward.server.util.Application;
 import com.evsward.server.util.SystemCache;
 import com.evsward.server.vo.tcpmsg.triggmsg.SystemBasePushTriggMsg;
@@ -43,7 +43,7 @@ public class DevManMsgPushServiceImpl extends PushMsg2TerminalService {
 	@Override
 	public void pushMsg2Terminal(SystemBasePushTriggMsg pushTriggMsg, HIChannelCache hiChCache) {
 		DevManageCache cache = (DevManageCache)hiChCache;
-		WptAckMessage.Builder result = WptAckMessage.newBuilder();
+		HIAckMessage.Builder result = HIAckMessage.newBuilder();
 		result.setJsonAckMsg(this.getPushingMsg());
 		this.writeMsg2Client(cache, encode(hiChCache, result));
 	}

@@ -7,7 +7,7 @@ import com.dance.core.utils.web.SpringContextUtils;
 import com.evsward.server.facade.CompetitionManageFacade;
 import com.evsward.server.netty.cache.CompManageCache;
 import com.evsward.server.netty.cache.HIChannelCache;
-import com.evsward.server.protobuf.WptMessage.WptAckMessage;
+import com.evsward.server.protobuf.HIMessage.HIAckMessage;
 import com.evsward.server.util.Application;
 import com.evsward.server.util.SystemCache;
 import com.evsward.server.vo.tcpmsg.triggmsg.SystemBasePushTriggMsg;
@@ -44,7 +44,7 @@ public class CompManProcMshPushServiceImpl extends PushMsg2TerminalService {
 	public void pushMsg2Terminal(SystemBasePushTriggMsg pushTriggMsg, HIChannelCache hiChCache) {
 		CompManageCache cache = (CompManageCache)hiChCache;
 		if(pushTriggMsg.getCompID() == cache.getCompID()){
-			WptAckMessage.Builder result = WptAckMessage.newBuilder();
+			HIAckMessage.Builder result = HIAckMessage.newBuilder();
 			result.setJsonAckMsg(this.getPushingMsg(pushTriggMsg));
 			this.writeMsg2Client(cache, encode(hiChCache, result));
 		}
