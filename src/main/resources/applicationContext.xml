@@ -77,9 +77,8 @@
 
 	
     
-	<!-- SpringContextUtils定义 -->
-	<bean id="springContextUtils" class="com.dance.core.utils.web.SpringContextUtils" lazy-init="false"/>
-
+	<!-- SpringContextHolder定义 -->
+	<bean id="springContextHolder" class="com.dance.core.utils.spring.SpringContextHolder" lazy-init="false"/>
 	<!-- ================================= 事务控制相关 ============================================= -->
 	<bean id="transactionManager" name="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

@@ -3,7 +3,7 @@ package com.evsward.server.thread;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.dance.core.utils.web.SpringContextUtils;
+import com.dance.core.utils.spring.SpringContextHolder;
 import com.evsward.server.facade.ScreenManageFacade;
 import com.evsward.server.netty.cache.DevManageCache;
 import com.evsward.server.netty.cache.HIChannelCache;
@@ -18,7 +18,7 @@ import com.evsward.server.vo.tcpmsg.triggmsg.SystemBasePushTriggMsg;
 public class DevManMsgPushServiceImpl extends PushMsg2TerminalService {
 
 	public DevManMsgPushServiceImpl(){
-		this.screenFacade = SpringContextUtils.getBean("screenFacade");
+		this.screenFacade = SpringContextHolder.getBean("screenFacade");
 		for (int i = 0; i < SystemCache.msgCmdList.size(); i++) {
 			if(SystemCache.msgCmdList.get(i).getMsgID() == Application.MSGTYPE.PADDEVIMAN){
 				this.thrdDesc = SystemCache.msgCmdList.get(i).getMsgName();

@@ -7,7 +7,7 @@ import org.jboss.netty.channel.ChannelStateEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.dance.core.utils.web.SpringContextUtils;
+import com.dance.core.utils.spring.SpringContextHolder;
 import com.evsward.server.facade.ScreenManageFacade;
 import com.evsward.server.netty.cache.HIChannelCache;
 import com.evsward.server.thread.PushMsg2TerminalService;
@@ -51,7 +51,7 @@ public class TcpUpstreamHandler extends GenericUpstreamHandler<TcpOriginalReques
 //								logger.info("关闭Channel消息号3---------------commandId="+commandId);
 								if(StringUtils.isNotEmpty(cache.getImei())){
 //									logger.info("关闭Channel消息号4---------------commandId="+commandId);
-									ScreenManageFacade screenManFacade = SpringContextUtils.getBean("screenFacade");
+									ScreenManageFacade screenManFacade = SpringContextHolder.getBean("screenFacade");
 									if(screenManFacade != null){
 //										logger.info("关闭Channel消息号5---------------commandId="+commandId);
 										screenManFacade.updateScreenOffline(cache.getImei());

@@ -20,7 +20,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.dance.core.utils.web.SpringContextUtils;
+import com.dance.core.utils.spring.SpringContextHolder;
 import com.evsward.server.dao.MemCompDao;
 import com.evsward.server.service.CompetitionService;
 import com.evsward.server.vo.CompetitionInfo;
@@ -88,14 +88,14 @@ public class HIFileUtils {
 		HSSFSheet sheet = null;
 		String pathDic = Application.PATH_ROOT + Application.PATH_EXPORTFILE + System.getProperty("file.separator");
     	try{
-    		CompetitionService compService = (CompetitionService)SpringContextUtils.getBean("compService");
+    		CompetitionService compService = (CompetitionService)SpringContextHolder.getBean("compService");
     		CompetitionInfo compInfo = compService.getCompInfoByCompID(compID);
     		if(compInfo == null){
     			logger.error("比赛数据导出失败，比赛为null，compID="+compID);
     			return;
     		}
     		String fileName = compInfo.getCompID() + ".xls";
-    		MemCompDao memCompDao = (MemCompDao)SpringContextUtils.getBean("memCompDao");
+    		MemCompDao memCompDao = (MemCompDao)SpringContextHolder.getBean("memCompDao");
     		List<Map<String, Object>> list = memCompDao.getExportData(compID);
     		Map<String, Object> map = null;
     		if(list != null){

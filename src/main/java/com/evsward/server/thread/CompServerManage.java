@@ -6,7 +6,7 @@ import javax.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.dance.core.utils.web.SpringContextUtils;
+import com.dance.core.utils.spring.SpringContextHolder;
 import com.evsward.server.service.CompetitionService;
 import com.evsward.server.util.Application;
 import com.evsward.server.vo.CompetitionInfo;
@@ -47,7 +47,7 @@ public class CompServerManage implements Runnable{
 //	}
 
 	public CompServerManage(int compID){
-		compService = SpringContextUtils.getBean("compService");
+		compService = SpringContextHolder.getBean("compService");
 		this.compID = compID;
 		try {
 			compInfo = this.compService.getCompInfoByCompID(compID);
@@ -57,7 +57,7 @@ public class CompServerManage implements Runnable{
 	}
 	
 	public CompServerManage(CompetitionInfo compInfo){
-		compService = SpringContextUtils.getBean("compService");
+		compService = SpringContextHolder.getBean("compService");
 		this.compInfo = compInfo;
 		this.compID = compInfo.getCompID();
 	}
