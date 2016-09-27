@@ -27,7 +27,7 @@
 	</insert>
 	
 	<select id="selectPrizeAreaGroup" parameterType="int" resultType="Map">
-		select ALLMIN, ALLMAX from prize where SYSTYPE = #{sysType} group by ALLMIN,ALLMAX
+		select ALLMIN, ALLMAX from PRIZE where SYSTYPE = #{sysType} group by ALLMIN,ALLMAX
 	</select>
 	
 	<select id="getPrizeByArea" parameterType="Map" resultMap="PrizeResultMap">
@@ -63,6 +63,6 @@
   			
 	</select>
 	<update id="update" parameterType="prize">
-		update prize set rankno = #{rankNO},ranknum=#{rankNum} where prizeid = #{prizeID}
+		update PRIZE set rankno = #{rankNO},ranknum=#{rankNum} where prizeid = #{prizeID}
 	</update>
 </mapper>
