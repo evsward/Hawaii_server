@@ -6,182 +6,84 @@ package com.evsward.server.protobuf;
 public final class HIMessage {
   private HIMessage() {}
   public static void registerAllExtensions(
-      com.google.protobuf.ExtensionRegistryLite registry) {
-  }
-
-  public static void registerAllExtensions(
       com.google.protobuf.ExtensionRegistry registry) {
-    registerAllExtensions(
-        (com.google.protobuf.ExtensionRegistryLite) registry);
   }
-  public interface HIReqMessageOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:HIReqMessage)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <pre>
-     *请求消息json格式的字符串
-     * </pre>
-     *
-     * <code>required string jsonReqMsg = 1;</code>
-     */
+  public interface HIReqMessageOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+    
+    // required string jsonReqMsg = 1;
     boolean hasJsonReqMsg();
-    /**
-     * <pre>
-     *请求消息json格式的字符串
-     * </pre>
-     *
-     * <code>required string jsonReqMsg = 1;</code>
-     */
-    java.lang.String getJsonReqMsg();
-    /**
-     * <pre>
-     *请求消息json格式的字符串
-     * </pre>
-     *
-     * <code>required string jsonReqMsg = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getJsonReqMsgBytes();
+    String getJsonReqMsg();
   }
-  /**
-   * <pre>
-   *请求协议
-   * </pre>
-   *
-   * Protobuf type {@code HIReqMessage}
-   */
-  public  static final class HIReqMessage extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:HIReqMessage)
-      HIReqMessageOrBuilder {
+  public static final class HIReqMessage extends
+      com.google.protobuf.GeneratedMessage
+      implements HIReqMessageOrBuilder {
     // Use HIReqMessage.newBuilder() to construct.
-    private HIReqMessage(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    private HIReqMessage(Builder builder) {
       super(builder);
     }
-    private HIReqMessage() {
-      jsonReqMsg_ = "";
+    private HIReqMessage(boolean noInit) {}
+    
+    private static final HIReqMessage defaultInstance;
+    public static HIReqMessage getDefaultInstance() {
+      return defaultInstance;
     }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
+    
+    public HIReqMessage getDefaultInstanceForType() {
+      return defaultInstance;
     }
-    private HIReqMessage(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 10: {
-              com.google.protobuf.ByteString bs = input.readBytes();
-              bitField0_ |= 0x00000001;
-              jsonReqMsg_ = bs;
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
+    
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return com.evsward.server.protobuf.HIMessage.internal_static_HIReqMessage_descriptor;
     }
-
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.evsward.server.protobuf.HIMessage.internal_static_HIReqMessage_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              com.evsward.server.protobuf.HIMessage.HIReqMessage.class, com.evsward.server.protobuf.HIMessage.HIReqMessage.Builder.class);
+      return com.evsward.server.protobuf.HIMessage.internal_static_HIReqMessage_fieldAccessorTable;
     }
-
+    
     private int bitField0_;
+    // required string jsonReqMsg = 1;
     public static final int JSONREQMSG_FIELD_NUMBER = 1;
-    private volatile java.lang.Object jsonReqMsg_;
-    /**
-     * <pre>
-     *请求消息json格式的字符串
-     * </pre>
-     *
-     * <code>required string jsonReqMsg = 1;</code>
-     */
+    private java.lang.Object jsonReqMsg_;
     public boolean hasJsonReqMsg() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
-    /**
-     * <pre>
-     *请求消息json格式的字符串
-     * </pre>
-     *
-     * <code>required string jsonReqMsg = 1;</code>
-     */
-    public java.lang.String getJsonReqMsg() {
+    public String getJsonReqMsg() {
       java.lang.Object ref = jsonReqMsg_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
+      if (ref instanceof String) {
+        return (String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
+        String s = bs.toStringUtf8();
+        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
           jsonReqMsg_ = s;
         }
         return s;
       }
     }
-    /**
-     * <pre>
-     *请求消息json格式的字符串
-     * </pre>
-     *
-     * <code>required string jsonReqMsg = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getJsonReqMsgBytes() {
+    private com.google.protobuf.ByteString getJsonReqMsgBytes() {
       java.lang.Object ref = jsonReqMsg_;
-      if (ref instanceof java.lang.String) {
+      if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
         jsonReqMsg_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
-
+    
+    private void initFields() {
+      jsonReqMsg_ = "";
+    }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
+      if (isInitialized != -1) return isInitialized == 1;
+      
       if (!hasJsonReqMsg()) {
         memoizedIsInitialized = 0;
         return false;
@@ -189,196 +91,168 @@ public final class HIMessage {
       memoizedIsInitialized = 1;
       return true;
     }
-
+    
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
+      getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, jsonReqMsg_);
+        output.writeBytes(1, getJsonReqMsgBytes());
       }
-      unknownFields.writeTo(output);
+      getUnknownFields().writeTo(output);
     }
-
+    
+    private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
-      int size = memoizedSize;
+      int size = memoizedSerializedSize;
       if (size != -1) return size;
-
+    
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, jsonReqMsg_);
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(1, getJsonReqMsgBytes());
       }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
       return size;
     }
-
+    
     private static final long serialVersionUID = 0L;
     @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof com.evsward.server.protobuf.HIMessage.HIReqMessage)) {
-        return super.equals(obj);
-      }
-      com.evsward.server.protobuf.HIMessage.HIReqMessage other = (com.evsward.server.protobuf.HIMessage.HIReqMessage) obj;
-
-      boolean result = true;
-      result = result && (hasJsonReqMsg() == other.hasJsonReqMsg());
-      if (hasJsonReqMsg()) {
-        result = result && getJsonReqMsg()
-            .equals(other.getJsonReqMsg());
-      }
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
     }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
-      if (hasJsonReqMsg()) {
-        hash = (37 * hash) + JSONREQMSG_FIELD_NUMBER;
-        hash = (53 * hash) + getJsonReqMsg().hashCode();
-      }
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
+    
     public static com.evsward.server.protobuf.HIMessage.HIReqMessage parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
+      return newBuilder().mergeFrom(data).buildParsed();
     }
     public static com.evsward.server.protobuf.HIMessage.HIReqMessage parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
     }
     public static com.evsward.server.protobuf.HIMessage.HIReqMessage parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
+      return newBuilder().mergeFrom(data).buildParsed();
     }
     public static com.evsward.server.protobuf.HIMessage.HIReqMessage parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
     }
     public static com.evsward.server.protobuf.HIMessage.HIReqMessage parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
+      return newBuilder().mergeFrom(input).buildParsed();
     }
     public static com.evsward.server.protobuf.HIMessage.HIReqMessage parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
     }
     public static com.evsward.server.protobuf.HIMessage.HIReqMessage parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
     }
     public static com.evsward.server.protobuf.HIMessage.HIReqMessage parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
     }
     public static com.evsward.server.protobuf.HIMessage.HIReqMessage parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
+      return newBuilder().mergeFrom(input).buildParsed();
     }
     public static com.evsward.server.protobuf.HIMessage.HIReqMessage parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
     }
-
+    
+    public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
     public static Builder newBuilder(com.evsward.server.protobuf.HIMessage.HIReqMessage prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+      return newBuilder().mergeFrom(prototype);
     }
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
+    public Builder toBuilder() { return newBuilder(this); }
+    
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
-    /**
-     * <pre>
-     *请求协议
-     * </pre>
-     *
-     * Protobuf type {@code HIReqMessage}
-     */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:HIReqMessage)
-        com.evsward.server.protobuf.HIMessage.HIReqMessageOrBuilder {
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.evsward.server.protobuf.HIMessage.HIReqMessageOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return com.evsward.server.protobuf.HIMessage.internal_static_HIReqMessage_descriptor;
       }
-
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.evsward.server.protobuf.HIMessage.internal_static_HIReqMessage_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                com.evsward.server.protobuf.HIMessage.HIReqMessage.class, com.evsward.server.protobuf.HIMessage.HIReqMessage.Builder.class);
+        return com.evsward.server.protobuf.HIMessage.internal_static_HIReqMessage_fieldAccessorTable;
       }
-
+      
       // Construct using com.evsward.server.protobuf.HIMessage.HIReqMessage.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      
+      private Builder(BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
         }
       }
+      private static Builder create() {
+        return new Builder();
+      }
+      
       public Builder clear() {
         super.clear();
         jsonReqMsg_ = "";
         bitField0_ = (bitField0_ & ~0x00000001);
         return this;
       }
-
+      
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+      
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.evsward.server.protobuf.HIMessage.internal_static_HIReqMessage_descriptor;
+        return com.evsward.server.protobuf.HIMessage.HIReqMessage.getDescriptor();
       }
-
+      
       public com.evsward.server.protobuf.HIMessage.HIReqMessage getDefaultInstanceForType() {
         return com.evsward.server.protobuf.HIMessage.HIReqMessage.getDefaultInstance();
       }
-
+      
       public com.evsward.server.protobuf.HIMessage.HIReqMessage build() {
         com.evsward.server.protobuf.HIMessage.HIReqMessage result = buildPartial();
         if (!result.isInitialized()) {
@@ -386,7 +260,17 @@ public final class HIMessage {
         }
         return result;
       }
-
+      
+      private com.evsward.server.protobuf.HIMessage.HIReqMessage buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        com.evsward.server.protobuf.HIMessage.HIReqMessage result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
       public com.evsward.server.protobuf.HIMessage.HIReqMessage buildPartial() {
         com.evsward.server.protobuf.HIMessage.HIReqMessage result = new com.evsward.server.protobuf.HIMessage.HIReqMessage(this);
         int from_bitField0_ = bitField0_;
@@ -399,33 +283,7 @@ public final class HIMessage {
         onBuilt();
         return result;
       }
-
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
+      
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.evsward.server.protobuf.HIMessage.HIReqMessage) {
           return mergeFrom((com.evsward.server.protobuf.HIMessage.HIReqMessage)other);
@@ -434,106 +292,74 @@ public final class HIMessage {
           return this;
         }
       }
-
+      
       public Builder mergeFrom(com.evsward.server.protobuf.HIMessage.HIReqMessage other) {
         if (other == com.evsward.server.protobuf.HIMessage.HIReqMessage.getDefaultInstance()) return this;
         if (other.hasJsonReqMsg()) {
-          bitField0_ |= 0x00000001;
-          jsonReqMsg_ = other.jsonReqMsg_;
-          onChanged();
+          setJsonReqMsg(other.getJsonReqMsg());
         }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
+        this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
-
+      
       public final boolean isInitialized() {
         if (!hasJsonReqMsg()) {
+          
           return false;
         }
         return true;
       }
-
+      
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.evsward.server.protobuf.HIMessage.HIReqMessage parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.evsward.server.protobuf.HIMessage.HIReqMessage) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 10: {
+              bitField0_ |= 0x00000001;
+              jsonReqMsg_ = input.readBytes();
+              break;
+            }
           }
         }
-        return this;
       }
+      
       private int bitField0_;
-
+      
+      // required string jsonReqMsg = 1;
       private java.lang.Object jsonReqMsg_ = "";
-      /**
-       * <pre>
-       *请求消息json格式的字符串
-       * </pre>
-       *
-       * <code>required string jsonReqMsg = 1;</code>
-       */
       public boolean hasJsonReqMsg() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
-      /**
-       * <pre>
-       *请求消息json格式的字符串
-       * </pre>
-       *
-       * <code>required string jsonReqMsg = 1;</code>
-       */
-      public java.lang.String getJsonReqMsg() {
+      public String getJsonReqMsg() {
         java.lang.Object ref = jsonReqMsg_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            jsonReqMsg_ = s;
-          }
+        if (!(ref instanceof String)) {
+          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+          jsonReqMsg_ = s;
           return s;
         } else {
-          return (java.lang.String) ref;
+          return (String) ref;
         }
       }
-      /**
-       * <pre>
-       *请求消息json格式的字符串
-       * </pre>
-       *
-       * <code>required string jsonReqMsg = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getJsonReqMsgBytes() {
-        java.lang.Object ref = jsonReqMsg_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          jsonReqMsg_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <pre>
-       *请求消息json格式的字符串
-       * </pre>
-       *
-       * <code>required string jsonReqMsg = 1;</code>
-       */
-      public Builder setJsonReqMsg(
-          java.lang.String value) {
+      public Builder setJsonReqMsg(String value) {
         if (value == null) {
     throw new NullPointerException();
   }
@@ -542,253 +368,105 @@ public final class HIMessage {
         onChanged();
         return this;
       }
-      /**
-       * <pre>
-       *请求消息json格式的字符串
-       * </pre>
-       *
-       * <code>required string jsonReqMsg = 1;</code>
-       */
       public Builder clearJsonReqMsg() {
         bitField0_ = (bitField0_ & ~0x00000001);
         jsonReqMsg_ = getDefaultInstance().getJsonReqMsg();
         onChanged();
         return this;
       }
-      /**
-       * <pre>
-       *请求消息json格式的字符串
-       * </pre>
-       *
-       * <code>required string jsonReqMsg = 1;</code>
-       */
-      public Builder setJsonReqMsgBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
+      void setJsonReqMsg(com.google.protobuf.ByteString value) {
+        bitField0_ |= 0x00000001;
         jsonReqMsg_ = value;
         onChanged();
-        return this;
       }
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
-
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
+      
       // @@protoc_insertion_point(builder_scope:HIReqMessage)
     }
-
-    // @@protoc_insertion_point(class_scope:HIReqMessage)
-    private static final com.evsward.server.protobuf.HIMessage.HIReqMessage DEFAULT_INSTANCE;
+    
     static {
-      DEFAULT_INSTANCE = new com.evsward.server.protobuf.HIMessage.HIReqMessage();
+      defaultInstance = new HIReqMessage(true);
+      defaultInstance.initFields();
     }
-
-    public static com.evsward.server.protobuf.HIMessage.HIReqMessage getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    @java.lang.Deprecated public static final com.google.protobuf.Parser<HIReqMessage>
-        PARSER = new com.google.protobuf.AbstractParser<HIReqMessage>() {
-      public HIReqMessage parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-          return new HIReqMessage(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<HIReqMessage> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<HIReqMessage> getParserForType() {
-      return PARSER;
-    }
-
-    public com.evsward.server.protobuf.HIMessage.HIReqMessage getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
+    
+    // @@protoc_insertion_point(class_scope:HIReqMessage)
   }
-
-  public interface HIAckMessageOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:HIAckMessage)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <pre>
-     *响应消息json格式的字符串
-     * </pre>
-     *
-     * <code>required string jsonAckMsg = 1;</code>
-     */
+  
+  public interface HIAckMessageOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+    
+    // required string jsonAckMsg = 1;
     boolean hasJsonAckMsg();
-    /**
-     * <pre>
-     *响应消息json格式的字符串
-     * </pre>
-     *
-     * <code>required string jsonAckMsg = 1;</code>
-     */
-    java.lang.String getJsonAckMsg();
-    /**
-     * <pre>
-     *响应消息json格式的字符串
-     * </pre>
-     *
-     * <code>required string jsonAckMsg = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getJsonAckMsgBytes();
+    String getJsonAckMsg();
   }
-  /**
-   * <pre>
-   *返回协议
-   * </pre>
-   *
-   * Protobuf type {@code HIAckMessage}
-   */
-  public  static final class HIAckMessage extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:HIAckMessage)
-      HIAckMessageOrBuilder {
+  public static final class HIAckMessage extends
+      com.google.protobuf.GeneratedMessage
+      implements HIAckMessageOrBuilder {
     // Use HIAckMessage.newBuilder() to construct.
-    private HIAckMessage(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    private HIAckMessage(Builder builder) {
       super(builder);
     }
-    private HIAckMessage() {
-      jsonAckMsg_ = "";
+    private HIAckMessage(boolean noInit) {}
+    
+    private static final HIAckMessage defaultInstance;
+    public static HIAckMessage getDefaultInstance() {
+      return defaultInstance;
     }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
+    
+    public HIAckMessage getDefaultInstanceForType() {
+      return defaultInstance;
     }
-    private HIAckMessage(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 10: {
-              com.google.protobuf.ByteString bs = input.readBytes();
-              bitField0_ |= 0x00000001;
-              jsonAckMsg_ = bs;
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
+    
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return com.evsward.server.protobuf.HIMessage.internal_static_HIAckMessage_descriptor;
     }
-
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.evsward.server.protobuf.HIMessage.internal_static_HIAckMessage_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              com.evsward.server.protobuf.HIMessage.HIAckMessage.class, com.evsward.server.protobuf.HIMessage.HIAckMessage.Builder.class);
+      return com.evsward.server.protobuf.HIMessage.internal_static_HIAckMessage_fieldAccessorTable;
     }
-
+    
     private int bitField0_;
+    // required string jsonAckMsg = 1;
     public static final int JSONACKMSG_FIELD_NUMBER = 1;
-    private volatile java.lang.Object jsonAckMsg_;
-    /**
-     * <pre>
-     *响应消息json格式的字符串
-     * </pre>
-     *
-     * <code>required string jsonAckMsg = 1;</code>
-     */
+    private java.lang.Object jsonAckMsg_;
     public boolean hasJsonAckMsg() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
-    /**
-     * <pre>
-     *响应消息json格式的字符串
-     * </pre>
-     *
-     * <code>required string jsonAckMsg = 1;</code>
-     */
-    public java.lang.String getJsonAckMsg() {
+    public String getJsonAckMsg() {
       java.lang.Object ref = jsonAckMsg_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
+      if (ref instanceof String) {
+        return (String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
+        String s = bs.toStringUtf8();
+        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
           jsonAckMsg_ = s;
         }
         return s;
       }
     }
-    /**
-     * <pre>
-     *响应消息json格式的字符串
-     * </pre>
-     *
-     * <code>required string jsonAckMsg = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getJsonAckMsgBytes() {
+    private com.google.protobuf.ByteString getJsonAckMsgBytes() {
       java.lang.Object ref = jsonAckMsg_;
-      if (ref instanceof java.lang.String) {
+      if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
         jsonAckMsg_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
-
+    
+    private void initFields() {
+      jsonAckMsg_ = "";
+    }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
+      if (isInitialized != -1) return isInitialized == 1;
+      
       if (!hasJsonAckMsg()) {
         memoizedIsInitialized = 0;
         return false;
@@ -796,196 +474,168 @@ public final class HIMessage {
       memoizedIsInitialized = 1;
       return true;
     }
-
+    
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
+      getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, jsonAckMsg_);
+        output.writeBytes(1, getJsonAckMsgBytes());
       }
-      unknownFields.writeTo(output);
+      getUnknownFields().writeTo(output);
     }
-
+    
+    private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
-      int size = memoizedSize;
+      int size = memoizedSerializedSize;
       if (size != -1) return size;
-
+    
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, jsonAckMsg_);
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(1, getJsonAckMsgBytes());
       }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
       return size;
     }
-
+    
     private static final long serialVersionUID = 0L;
     @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof com.evsward.server.protobuf.HIMessage.HIAckMessage)) {
-        return super.equals(obj);
-      }
-      com.evsward.server.protobuf.HIMessage.HIAckMessage other = (com.evsward.server.protobuf.HIMessage.HIAckMessage) obj;
-
-      boolean result = true;
-      result = result && (hasJsonAckMsg() == other.hasJsonAckMsg());
-      if (hasJsonAckMsg()) {
-        result = result && getJsonAckMsg()
-            .equals(other.getJsonAckMsg());
-      }
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
     }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
-      if (hasJsonAckMsg()) {
-        hash = (37 * hash) + JSONACKMSG_FIELD_NUMBER;
-        hash = (53 * hash) + getJsonAckMsg().hashCode();
-      }
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
+    
     public static com.evsward.server.protobuf.HIMessage.HIAckMessage parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
+      return newBuilder().mergeFrom(data).buildParsed();
     }
     public static com.evsward.server.protobuf.HIMessage.HIAckMessage parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
     }
     public static com.evsward.server.protobuf.HIMessage.HIAckMessage parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
+      return newBuilder().mergeFrom(data).buildParsed();
     }
     public static com.evsward.server.protobuf.HIMessage.HIAckMessage parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
     }
     public static com.evsward.server.protobuf.HIMessage.HIAckMessage parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
+      return newBuilder().mergeFrom(input).buildParsed();
     }
     public static com.evsward.server.protobuf.HIMessage.HIAckMessage parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
     }
     public static com.evsward.server.protobuf.HIMessage.HIAckMessage parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
     }
     public static com.evsward.server.protobuf.HIMessage.HIAckMessage parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
     }
     public static com.evsward.server.protobuf.HIMessage.HIAckMessage parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
+      return newBuilder().mergeFrom(input).buildParsed();
     }
     public static com.evsward.server.protobuf.HIMessage.HIAckMessage parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
     }
-
+    
+    public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
     public static Builder newBuilder(com.evsward.server.protobuf.HIMessage.HIAckMessage prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+      return newBuilder().mergeFrom(prototype);
     }
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
+    public Builder toBuilder() { return newBuilder(this); }
+    
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
-    /**
-     * <pre>
-     *返回协议
-     * </pre>
-     *
-     * Protobuf type {@code HIAckMessage}
-     */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:HIAckMessage)
-        com.evsward.server.protobuf.HIMessage.HIAckMessageOrBuilder {
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.evsward.server.protobuf.HIMessage.HIAckMessageOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return com.evsward.server.protobuf.HIMessage.internal_static_HIAckMessage_descriptor;
       }
-
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.evsward.server.protobuf.HIMessage.internal_static_HIAckMessage_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                com.evsward.server.protobuf.HIMessage.HIAckMessage.class, com.evsward.server.protobuf.HIMessage.HIAckMessage.Builder.class);
+        return com.evsward.server.protobuf.HIMessage.internal_static_HIAckMessage_fieldAccessorTable;
       }
-
+      
       // Construct using com.evsward.server.protobuf.HIMessage.HIAckMessage.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      
+      private Builder(BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
         }
       }
+      private static Builder create() {
+        return new Builder();
+      }
+      
       public Builder clear() {
         super.clear();
         jsonAckMsg_ = "";
         bitField0_ = (bitField0_ & ~0x00000001);
         return this;
       }
-
+      
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+      
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.evsward.server.protobuf.HIMessage.internal_static_HIAckMessage_descriptor;
+        return com.evsward.server.protobuf.HIMessage.HIAckMessage.getDescriptor();
       }
-
+      
       public com.evsward.server.protobuf.HIMessage.HIAckMessage getDefaultInstanceForType() {
         return com.evsward.server.protobuf.HIMessage.HIAckMessage.getDefaultInstance();
       }
-
+      
       public com.evsward.server.protobuf.HIMessage.HIAckMessage build() {
         com.evsward.server.protobuf.HIMessage.HIAckMessage result = buildPartial();
         if (!result.isInitialized()) {
@@ -993,7 +643,17 @@ public final class HIMessage {
         }
         return result;
       }
-
+      
+      private com.evsward.server.protobuf.HIMessage.HIAckMessage buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        com.evsward.server.protobuf.HIMessage.HIAckMessage result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
       public com.evsward.server.protobuf.HIMessage.HIAckMessage buildPartial() {
         com.evsward.server.protobuf.HIMessage.HIAckMessage result = new com.evsward.server.protobuf.HIMessage.HIAckMessage(this);
         int from_bitField0_ = bitField0_;
@@ -1006,33 +666,7 @@ public final class HIMessage {
         onBuilt();
         return result;
       }
-
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
+      
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.evsward.server.protobuf.HIMessage.HIAckMessage) {
           return mergeFrom((com.evsward.server.protobuf.HIMessage.HIAckMessage)other);
@@ -1041,106 +675,74 @@ public final class HIMessage {
           return this;
         }
       }
-
+      
       public Builder mergeFrom(com.evsward.server.protobuf.HIMessage.HIAckMessage other) {
         if (other == com.evsward.server.protobuf.HIMessage.HIAckMessage.getDefaultInstance()) return this;
         if (other.hasJsonAckMsg()) {
-          bitField0_ |= 0x00000001;
-          jsonAckMsg_ = other.jsonAckMsg_;
-          onChanged();
+          setJsonAckMsg(other.getJsonAckMsg());
         }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
+        this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
-
+      
       public final boolean isInitialized() {
         if (!hasJsonAckMsg()) {
+          
           return false;
         }
         return true;
       }
-
+      
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.evsward.server.protobuf.HIMessage.HIAckMessage parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.evsward.server.protobuf.HIMessage.HIAckMessage) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 10: {
+              bitField0_ |= 0x00000001;
+              jsonAckMsg_ = input.readBytes();
+              break;
+            }
           }
         }
-        return this;
       }
+      
       private int bitField0_;
-
+      
+      // required string jsonAckMsg = 1;
       private java.lang.Object jsonAckMsg_ = "";
-      /**
-       * <pre>
-       *响应消息json格式的字符串
-       * </pre>
-       *
-       * <code>required string jsonAckMsg = 1;</code>
-       */
       public boolean hasJsonAckMsg() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
-      /**
-       * <pre>
-       *响应消息json格式的字符串
-       * </pre>
-       *
-       * <code>required string jsonAckMsg = 1;</code>
-       */
-      public java.lang.String getJsonAckMsg() {
+      public String getJsonAckMsg() {
         java.lang.Object ref = jsonAckMsg_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            jsonAckMsg_ = s;
-          }
+        if (!(ref instanceof String)) {
+          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+          jsonAckMsg_ = s;
           return s;
         } else {
-          return (java.lang.String) ref;
+          return (String) ref;
         }
       }
-      /**
-       * <pre>
-       *响应消息json格式的字符串
-       * </pre>
-       *
-       * <code>required string jsonAckMsg = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getJsonAckMsgBytes() {
-        java.lang.Object ref = jsonAckMsg_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          jsonAckMsg_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <pre>
-       *响应消息json格式的字符串
-       * </pre>
-       *
-       * <code>required string jsonAckMsg = 1;</code>
-       */
-      public Builder setJsonAckMsg(
-          java.lang.String value) {
+      public Builder setJsonAckMsg(String value) {
         if (value == null) {
     throw new NullPointerException();
   }
@@ -1149,101 +751,45 @@ public final class HIMessage {
         onChanged();
         return this;
       }
-      /**
-       * <pre>
-       *响应消息json格式的字符串
-       * </pre>
-       *
-       * <code>required string jsonAckMsg = 1;</code>
-       */
       public Builder clearJsonAckMsg() {
         bitField0_ = (bitField0_ & ~0x00000001);
         jsonAckMsg_ = getDefaultInstance().getJsonAckMsg();
         onChanged();
         return this;
       }
-      /**
-       * <pre>
-       *响应消息json格式的字符串
-       * </pre>
-       *
-       * <code>required string jsonAckMsg = 1;</code>
-       */
-      public Builder setJsonAckMsgBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
+      void setJsonAckMsg(com.google.protobuf.ByteString value) {
+        bitField0_ |= 0x00000001;
         jsonAckMsg_ = value;
         onChanged();
-        return this;
       }
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
-
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
+      
       // @@protoc_insertion_point(builder_scope:HIAckMessage)
     }
-
-    // @@protoc_insertion_point(class_scope:HIAckMessage)
-    private static final com.evsward.server.protobuf.HIMessage.HIAckMessage DEFAULT_INSTANCE;
+    
     static {
-      DEFAULT_INSTANCE = new com.evsward.server.protobuf.HIMessage.HIAckMessage();
+      defaultInstance = new HIAckMessage(true);
+      defaultInstance.initFields();
     }
-
-    public static com.evsward.server.protobuf.HIMessage.HIAckMessage getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    @java.lang.Deprecated public static final com.google.protobuf.Parser<HIAckMessage>
-        PARSER = new com.google.protobuf.AbstractParser<HIAckMessage>() {
-      public HIAckMessage parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-          return new HIAckMessage(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<HIAckMessage> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<HIAckMessage> getParserForType() {
-      return PARSER;
-    }
-
-    public com.evsward.server.protobuf.HIMessage.HIAckMessage getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
+    
+    // @@protoc_insertion_point(class_scope:HIAckMessage)
   }
-
-  private static final com.google.protobuf.Descriptors.Descriptor
+  
+  private static com.google.protobuf.Descriptors.Descriptor
     internal_static_HIReqMessage_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_HIReqMessage_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
+  private static com.google.protobuf.Descriptors.Descriptor
     internal_static_HIAckMessage_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_HIAckMessage_fieldAccessorTable;
-
+  
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
     return descriptor;
   }
-  private static  com.google.protobuf.Descriptors.FileDescriptor
+  private static com.google.protobuf.Descriptors.FileDescriptor
       descriptor;
   static {
     java.lang.String[] descriptorData = {
@@ -1253,30 +799,34 @@ public final class HIMessage {
       "Message"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
-        new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
-          public com.google.protobuf.ExtensionRegistry assignDescriptors(
-              com.google.protobuf.Descriptors.FileDescriptor root) {
-            descriptor = root;
-            return null;
-          }
-        };
+      new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
+        public com.google.protobuf.ExtensionRegistry assignDescriptors(
+            com.google.protobuf.Descriptors.FileDescriptor root) {
+          descriptor = root;
+          internal_static_HIReqMessage_descriptor =
+            getDescriptor().getMessageTypes().get(0);
+          internal_static_HIReqMessage_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_HIReqMessage_descriptor,
+              new java.lang.String[] { "JsonReqMsg", },
+              com.evsward.server.protobuf.HIMessage.HIReqMessage.class,
+              com.evsward.server.protobuf.HIMessage.HIReqMessage.Builder.class);
+          internal_static_HIAckMessage_descriptor =
+            getDescriptor().getMessageTypes().get(1);
+          internal_static_HIAckMessage_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_HIAckMessage_descriptor,
+              new java.lang.String[] { "JsonAckMsg", },
+              com.evsward.server.protobuf.HIMessage.HIAckMessage.class,
+              com.evsward.server.protobuf.HIMessage.HIAckMessage.Builder.class);
+          return null;
+        }
+      };
     com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         }, assigner);
-    internal_static_HIReqMessage_descriptor =
-      getDescriptor().getMessageTypes().get(0);
-    internal_static_HIReqMessage_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_HIReqMessage_descriptor,
-        new java.lang.String[] { "JsonReqMsg", });
-    internal_static_HIAckMessage_descriptor =
-      getDescriptor().getMessageTypes().get(1);
-    internal_static_HIAckMessage_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_HIAckMessage_descriptor,
-        new java.lang.String[] { "JsonAckMsg", });
   }
-
+  
   // @@protoc_insertion_point(outer_class_scope)
 }
