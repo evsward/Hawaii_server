@@ -30,10 +30,10 @@ public class NFCCardFacadeImpl implements NFCCardFacade{
 	public String insertNFCInfo(long nfcID, int sysType){
 		String jsonStr = "";
 		InitedNFC nfcInfo = null;
-		if(String.valueOf(nfcID).length() > 11){//选手卡的ID长度都是11位以内的数字
-			jsonStr = HIUtil.toJsonNormalField(HIUtil.createJsonResInitMap(RspCodeValue.$105.getRspCode(), RspCodeValue.$105.getMsg()));
-			return jsonStr;
-		}
+//		if(String.valueOf(nfcID).length() > 11){//选手卡的ID长度都是11位以内的数字
+//			jsonStr = HIUtil.toJsonNormalField(HIUtil.createJsonResInitMap(RspCodeValue.$105.getRspCode(), RspCodeValue.$105.getMsg()));
+//			return jsonStr;
+//		}
 		try {
 			nfcInfo = this.nfcService.getInitedNFCbynfcID(nfcID);
 			if(nfcInfo == null){
