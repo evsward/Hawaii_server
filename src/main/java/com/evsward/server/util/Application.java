@@ -18,8 +18,7 @@ public class Application {
 
 	public static final String TPS = "------------------";
 
-	/** root path */
-	public static String PATH_ROOT = "";
+	public static String PATH_ROOT = "C:/butler/";
 	/** 头像图片上传目录 */
 	public static final String PATH_IMAGE = "memimage";
 	/** 头像图片上传目录 */

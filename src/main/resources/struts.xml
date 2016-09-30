@@ -25,7 +25,7 @@
 	<constant name="struts.serve.static.browserCache" value="false" />
 	<!-- 图片上传临时目录 -->
 	<constant name="struts.multipart.maxSize" value="4194304"/>
-	<constant name="struts.multipart.saveDir" value="d:\hiUpload"></constant>
+	<constant name="struts.multipart.saveDir" value="c:\hiUpload"></constant>
 	
 	<!-- 
 		使用Convention插件,实现约定大于配置的零配置文件风格.
