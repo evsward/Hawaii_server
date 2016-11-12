@@ -14,18 +14,18 @@ public class DealBlinds {
 	 * @throws Exception 
 	 */
 	public static void main(String[] args) throws Exception {
-		String path = "c:\\网吧德州竞技比赛盲注表.txt";
+		String path = "E:\\@文档\\2A赛事系统\\documents\\制盲注表\\SPT盲注表.txt";
 		BufferedReader br = new BufferedReader(new FileReader(new File(path)));
 		String line = br.readLine();
 		String[] data = null;
-		String sqltemp = "insert into round(roundtempid, roundstatus, beforechip, smallblind, bigblind, roundtype, roundrank, steplen, systype) values(2, 0, %s, %s, %s, %s, %s, %s, 1);";
+		String sqltemp = "insert into round(roundtempid, roundstatus, beforechip, smallblind, bigblind, roundtype, roundrank, steplen, systype) values(%s, %s, %s, %s, %s, %s, %s, %s, %s);";
 		while(line != null){
 			if(!StringUtils.isEmpty(line)){
 				data = line.split(",");
-				if(data.length != 6){
+				if(data.length != 9){
 					throw new Exception("数据格式不正确");
 				}
-				System.out.println(String.format(sqltemp, data[0], data[1], data[2], data[3], data[4], data[5]));
+				System.out.println(String.format(sqltemp, data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8]));
 			}
 			line = br.readLine();
 		}
