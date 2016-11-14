@@ -662,7 +662,7 @@ public class CompetitionServiceImpl extends
 	@Transactional(propagation=Propagation.REQUIRED, isolation=Isolation.DEFAULT)
 	public EditSubPlayerVO updateSubPlayer(int compID, int subNum)throws Exception{
 		EditSubPlayerVO vo = null;
-		this.compDao.updateSubPlayer(compID, Math.abs(subNum));
+		this.compDao.updateSubPlayer(compID, subNum);
 		CompetitionInfo compInfo = this.compDao.getCompInfoByCompID(compID);
 		int compRegedTotalPlayerCount = compInfo.getTotalPlayer();
 		int totalRegedPlayerCountEdit = compRegedTotalPlayerCount - compInfo.getSubPlayerCount();
