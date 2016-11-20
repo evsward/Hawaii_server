@@ -14,7 +14,7 @@ public class DealBlinds {
 	 * @throws Exception 
 	 */
 	public static void main(String[] args) throws Exception {
-		String path = "E:\\@文档\\2A赛事系统\\documents\\制盲注表\\SPT盲注表.txt";
+		String path = "C:\\butler\\猎人赛盲注表初赛.txt";
 		BufferedReader br = new BufferedReader(new FileReader(new File(path)));
 		String line = br.readLine();
 		String[] data = null;
