@@ -89,7 +89,7 @@ public class CompetitionListAction extends StrutsAction<CompetitionInfo, Integer
 	}
 	
 	public void validateEditCompetition(){
-		if(this.compID <=0 || StringUtils.isEmpty(this.compName) || this.leastPrize < 0 || this.regFee <= 0 || this.serviceFee <= 0 
+		if(this.compID <=0 || StringUtils.isEmpty(this.compName) || this.leastPrize < 0 || this.regFee < 0 || this.serviceFee < 0 
 				|| this.beginChip <= 0 || (this.unit != CompetitionInfo.MONEYUNIT.USD && this.unit != CompetitionInfo.MONEYUNIT.CNY) 
 				|| this.roundTempID <= 0 || (this.aword != CompetitionInfo.AWORDSTATE.WITHAWORD && this.aword != CompetitionInfo.AWORDSTATE.NOAWORD) 
 				|| (this.assignSeat != CompetitionInfo.ASSIGNSEATSTATE.USE && this.assignSeat != CompetitionInfo.ASSIGNSEATSTATE.NOUSE) 

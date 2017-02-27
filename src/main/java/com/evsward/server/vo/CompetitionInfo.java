@@ -20,18 +20,24 @@ public class CompetitionInfo implements Serializable {
 		/** 未开放 */
 		public static final int STATE_NOREG = 0;
 		public static final String STATE_NOREGSHOW = "未开放";
+		
 		/** 正在报名，比赛未开赛 */
 		public static final int STATE_REGING_NOBEGIN = 1;
 		public static final String STATE_REGING_NOBEGINSHOW = "正在报名-比赛未开赛";
+		/** 倒计时-比赛未开赛 */
+		public static final int COUNTDOWN_STATE_WAIT = 6;
+		public static final String COUNTDOWN_STATE_WAITSHOW = "倒计时中";
 		/** 正在报名，比赛进行中 */
 		public static final int STATE_REGING_BEGINED = 2;
 		public static final String STATE_REGING_BEGINEDSHOW = "正在报名-比赛进行中";
+		
 		/** 停止报名，比赛未开始 */
 		public static final int STATE_REGEND_NOBEGIN = 3;
 		public static final String STATE_REGEND_NOBEGINSHOW = "停止报名-比赛未开始";
 		/** 停止报名，比赛进行中 */
 		public static final int STATE_RUNNING = 4;
 		public static final String STATE_RUNNINGSHOW = "停止报名-比赛进行中";
+		
 		/** 比赛已结束 */
 		public static final int STATE_END = 5;
 		public static final String STATE_ENDSHOW = "已结束";

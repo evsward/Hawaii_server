@@ -359,10 +359,11 @@ public interface CompetitionService extends
 	 * 后台比赛维护线程--比赛时间到，更新比赛状态为compState=2或者compState=4
 	 * @param compInfo
 	 * @param newCompState，要更新的比赛新状态
+	 * @param flag 是否需要更换倒计时状态
 	 * @return
 	 * @throws Exception
 	 */
-	public int updateStartCompetition_Serv(CompetitionInfo compInfo, int newCompState)throws Exception;
+	public int updateStartCompetition_Serv(CompetitionInfo compInfo, int newCompState, boolean flag)throws Exception;
 	
 	/**
 	 * 后台比赛维护线程--维护比赛盲注进度
