@@ -83,7 +83,7 @@ public class CompServerManage implements Runnable{
 									this.compService.updateStartCompetition_Serv(compInfo, CompetitionInfo.COMPSTATE.STATE_RUNNING);
 									Application.setTriggingMsgForPushing(new SystemBasePushTriggMsg(Application.OPERTYPE.COMPTHREADSERV, 0, compID));
 								}else{//2、扫描比赛当前盲注信息。判断是否该进行下一盲注，是否该更新比赛状态compState=4。
-									res = this.compService.updateCompRoundRun_Serv(compInfo);
+									res = this.compService.updateCompRoundRun_Serv(compInfo); 
 									if(res == -1){//盲注跳到尽头，就结束该线程
 										//比赛后台维护线程结束，就删掉线程缓存对象
 										Application.compServManageMap.remove(String.valueOf(compID));
