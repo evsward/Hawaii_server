@@ -20,6 +20,8 @@ public class ScreenCompInfo implements Serializable {
 	private String compStateDesc;
 	//比赛初始筹码
 	private int beginChip;
+	//比赛当前前注
+	private int beforeChip;
 	//比赛开始日期：yyyy-MM-dd
 	private String compStartDateStr;
 	//比赛开始时间：hh:mm
@@ -30,13 +32,14 @@ public class ScreenCompInfo implements Serializable {
 	private int curRoundRank;
 	
 	public ScreenCompInfo(int compID, String compName, int compState,
-			int beginChip, String compStartDateStr, String compStartTime,
+			int beginChip, int beforeChip, String compStartDateStr, String compStartTime,
 			int totalRegedPlayerCount, int curRoundRank) {
 		super();
 		this.compID = compID;
 		this.compName = compName;
 		this.compState = compState;
 		this.beginChip = beginChip;
+		this.beforeChip = beforeChip;
 		this.compStartDateStr = compStartDateStr;
 		this.compStartTime = compStartTime;
 		this.totalRegedPlayerCount = totalRegedPlayerCount;
@@ -90,6 +93,12 @@ public class ScreenCompInfo implements Serializable {
 	}
 	public void setBeginChip(int beginChip) {
 		this.beginChip = beginChip;
+	}
+	public int getBeforeChip() {
+		return beforeChip;
+	}
+	public void setBeforeChip(int beforeChip) {
+		this.beforeChip = beforeChip;
 	}
 	public String getCompStartDateStr() {
 		return compStartDateStr;

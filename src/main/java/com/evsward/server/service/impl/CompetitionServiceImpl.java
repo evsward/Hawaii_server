@@ -1020,14 +1020,16 @@ public class CompetitionServiceImpl extends
 		List<CompetitionInfo> list = this.compDao.getNoEndCompsInTimeAreaNoDelNoEnd(start, end, sysType);
 		ScreenCompInfo screenCompInfo = null;
 		int curRank = 0;
+		int curBeforeChip = 0;
 		if(list != null && list.size() > 0){
 			for (int i = 0; i < list.size(); i++) {
 				CompetitionInfo info = list.get(i);
 				info.setCompRunningRound(this.runningRoundDao.getRunningRoundByCompID(info.getCompID()));
 				if(info.getCompRunningRound() != null){
 					curRank = info.getCompRunningRound().getCurRank();
+					curBeforeChip =  info.getCompRunningRound().getCurBeforeChip();
 				}
-				screenCompInfo = new ScreenCompInfo(info.getCompID(), info.getCompName(), info.getCompState(), info.getBeginChip(), 
+				screenCompInfo = new ScreenCompInfo(info.getCompID(), info.getCompName(), info.getCompState(), info.getBeginChip(),curBeforeChip,
 						DateUtils.formatDate(info.getStartTime(), DateUtils.PATTERN2), DateUtils.formatDate(info.getStartTime(), 
 								DateUtils.PATTERN7), info.getTotalPlayer() - info.getSubPlayerCount(), curRank);
 				res.add(screenCompInfo);
@@ -1049,7 +1051,7 @@ public class CompetitionServiceImpl extends
 		//更新比赛的compState=2
 		this.compDao.startCompetition_Serv(compInfo.getCompID(), newCompState);
 		//添加当前运行盲注信息
-		Round round = this.roundDao.getRoundByRank(compInfo.getRoundTempID(), 1);
+		Round round = this.roundDao.getRoundByRank(compInfo.getRoundTempID(), 0);
 		CompRunningRound runningRound = new CompRunningRound();
 		runningRound.setCompID(compInfo.getCompID());
 		runningRound.setCurBeforeChip(round.getBeforeChip());

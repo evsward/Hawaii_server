@@ -66,7 +66,8 @@ public class CompServerManage implements Runnable{
 	public void run(){
 		logger.info("比赛后台维护线程启动,【compID = "+this.compID+", compName = "+this.compInfo.getCompName()+"】");
 		int res = 0;
-		long compStartTimeLong = compInfo.getStartTime().getTime();
+		long compStartTime = compInfo.getStartTime().getTime();
+		long compStartTimeLong = compStartTime-900*1000;
 		while(compInfo.getSysType() == Application.SYSTYPE.USECOMPMANAGE && 
 				compInfo.getCompState() != CompetitionInfo.COMPSTATE.STATE_DEL && 
 				compInfo.getCompState() != CompetitionInfo.COMPSTATE.STATE_END){
@@ -114,7 +115,7 @@ public class CompServerManage implements Runnable{
 				logger.error(e.getMessage(), e);
 				return;
 			}
-			compStartTimeLong = compInfo.getStartTime().getTime();
+//			compStartTimeLong = compInfo.getStartTime().getTime();
 			if(System.currentTimeMillis() - this.time >= 60000){//一分钟输出一次日志
 				logger.info("后台比赛维护线程，compID="+this.compID+",正在运行");
 				this.time = System.currentTimeMillis();

@@ -243,6 +243,7 @@ public class CompetitionManageFacadeImpl implements CompetitionManageFacade {
 		CompRunningRound runningRound = null;
 		int curRank = 0;
 		int curType = 0;
+		int curBeforeChip = 0;
 		List<CompetitionInfo> allCompetitionList = null;
 		String jsonStr = "";
 		try {
@@ -270,10 +271,11 @@ public class CompetitionManageFacadeImpl implements CompetitionManageFacade {
 			if(runningRound != null){
 				curRank = runningRound.getCurRank();
 				curType = runningRound.getCurType();
+				curBeforeChip = runningRound.getCurBeforeChip();
 			}
 			compListInfo = new CompListInfo(compInfo.getCompID(), compInfo.getCompName(), 
 					DateUtils.formatDate(compInfo.getStartTime(), DateUtils.PATTERN7), compInfo.getCompState(), 
-					compInfo.getRegFee(), compInfo.getServiceFee(), compInfo.getBeginChip(), 
+					compInfo.getRegFee(), compInfo.getServiceFee(), compInfo.getBeginChip(), curBeforeChip,
 					curRank, curType, compInfo.getReEntry(), compInfo.getAmountUnit());
 			compInfo_Day.getCompListInfo().add(compListInfo);
 		}

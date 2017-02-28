@@ -14,6 +14,7 @@ public class CompListInfo implements Serializable {
 	private int regFee;
 	private int serviceFee;
 	private int beginChip;
+	private int beforeChip;
 	private int curRank;
 	private int curType;
 	private int reEntry;
@@ -109,6 +110,12 @@ public class CompListInfo implements Serializable {
 	public void setBeginChip(int beginChip) {
 		this.beginChip = beginChip;
 	}
+	public int getBeforeChip() {
+		return beforeChip;
+	}
+	public void setBeforeChip(int beforeChip) {
+		this.beforeChip = beforeChip;
+	}
 	public int getCurRank() {
 		return curRank;
 	}
@@ -119,7 +126,7 @@ public class CompListInfo implements Serializable {
 		super();
 	}
 	public CompListInfo(int compID, String compName, String time, int compState,
-			int regFee, int serviceFee, int beginChip, int curRank, int curType, int reEntry, int amountUnit) {
+			int regFee, int serviceFee, int beginChip, int beforeChip, int curRank, int curType, int reEntry, int amountUnit) {
 		super();
 		this.compID = compID;
 		this.compName = compName;
@@ -128,6 +135,7 @@ public class CompListInfo implements Serializable {
 		this.regFee = regFee;
 		this.serviceFee = serviceFee;
 		this.beginChip = beginChip;
+		this.beforeChip = beforeChip;
 		this.curRank = curRank;
 		this.curType = curType;
 		this.reEntry = reEntry;
