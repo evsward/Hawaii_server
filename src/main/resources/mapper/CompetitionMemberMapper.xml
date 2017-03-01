@@ -203,6 +203,14 @@
 		where 
 			mc.MCSTATE = #{mcState} and TABLENO = #{tableNO}
 	</select>
+	<select id="getCompMemBySeat" parameterType="Map" resultMap="competitionMemberResultMap1">
+		select 
+			<include refid="columnAll1"/> 
+		from 
+			MEMCOMPINFO mc
+		where 
+			SEATNO = #{seatNO} and TABLENO = #{tableNO}
+	</select>
 	
 	<select id="selectMemRegedCompsOfToday" parameterType="Map" resultType="Map">
 		select 

@@ -247,7 +247,7 @@ public interface CompetitionService extends
 	 * @return
 	 * @throws Exception
 	 */
-	public int updateOutMemFromComp(int cmID, int memID, int compID)throws Exception;
+	public int updateOutMemFromComp(int tableNO, int seatNO, int memID, int compID)throws Exception;
 	
 	/**
 	 * 编辑扣减选手数量，累计减

@@ -202,6 +202,20 @@ public class MemCompDaoImpl extends MyBatisDaoImpl<CompetitionMember, Integer> i
 	}
 	
 	/**
+	 * 根据桌号座位号查询CompetitionMember对象
+	 * @param tableNO
+	 * @param seatNO
+	 * @return
+	 * @throws Exception
+	 */
+	public CompetitionMember getCompMemBySeat(int tableNO, int seatNO)throws Exception{
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("tableNO", tableNO);
+		paramMap.put("seatNO", seatNO);
+		return this.find("getCompMemBySeat", paramMap).get(0);
+	}
+	
+	/**
 	 * 更新参赛选手的座位信息
 	 * @param cmID
 	 * @param tableNO

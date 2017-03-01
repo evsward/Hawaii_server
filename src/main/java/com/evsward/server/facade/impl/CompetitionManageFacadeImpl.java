@@ -703,11 +703,11 @@ public class CompetitionManageFacadeImpl implements CompetitionManageFacade {
 	 * @param compID
 	 * @return
 	 */
-	public String outMemFromComp(int cmID, int memID, int compID){
+	public String outMemFromComp(int tableNO, int seatNO, int memID, int compID){
 		String jsonStr = "";
 		int res = 0;
 		try {
-			res = this.compService.updateOutMemFromComp(cmID, memID, compID);
+			res = this.compService.updateOutMemFromComp(tableNO, seatNO, memID, compID);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			jsonStr = HIUtil.toJsonNormalField(HIUtil.createJsonResInitMap(RspCodeValue.$432.getRspCode(), RspCodeValue.$432.getMsg()));

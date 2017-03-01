@@ -205,7 +205,7 @@ public interface CompetitionManageFacade {
 	 * @param compID
 	 * @return
 	 */
-	public String outMemFromComp(int cmID, int memID, int compID);
+	public String outMemFromComp(int tableNO, int seatNO, int memID, int compID);
 	
 	/**
 	 * 编辑扣减选手数量，累计减

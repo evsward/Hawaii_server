@@ -580,13 +580,13 @@ public class CompetitionServiceImpl extends
 	 * @throws Exception
 	 */
 	@Transactional(propagation=Propagation.REQUIRED, isolation=Isolation.DEFAULT)
-	public int updateOutMemFromComp(int cmID, int memID, int compID)throws Exception{
+	public int updateOutMemFromComp(int tableNO, int seatNO, int memID, int compID)throws Exception{
 		this.lockDao.getLock(LockTable.LOCKTYPE.PRIZELOCK);//抢锁
 		int compRegedTotalPlayerCount = 0;
 		//查询比赛信息
 		CompetitionInfo compInfo = this.compDao.getCompInfoByCompID(compID);
 		//查询选手参赛信息
-		CompetitionMember cm = this.memCompDao.getCompMemByID(cmID);
+		CompetitionMember cm = this.memCompDao.getCompMemBySeat(tableNO, seatNO);
 		if(compInfo == null || cm == null || cm.getMemID() != memID || cm.getCompID() != compID){
 			return 0;
 		}
@@ -599,7 +599,7 @@ public class CompetitionServiceImpl extends
 			return -2;
 		}
 		//更新参赛状态为淘汰
-		this.memCompDao.outCompMemberByID(cmID);
+		this.memCompDao.outCompMemberByID(cm.getId());
 		//判断是否带奖励
 		if(compInfo.getAword() == CompetitionInfo.AWORDSTATE.WITHAWORD && 
 				(compInfo.getCompState() == CompetitionInfo.COMPSTATE.STATE_REGEND_NOBEGIN || 

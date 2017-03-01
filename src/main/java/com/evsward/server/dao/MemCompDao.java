@@ -77,6 +77,14 @@ public interface MemCompDao extends BaseDao<CompetitionMember, Integer> {
 	 */
 	public CompetitionMember getCompMemByID(int id)throws Exception;
 	
+	/**
+	 * 根据桌号座位号查询CompetitionMember对象
+	 * @param tableNO
+	 * @param seatNO
+	 * @return
+	 * @throws Exception
+	 */
+	public CompetitionMember getCompMemBySeat(int tableNO, int seatNO)throws Exception;
 //	/**
 //	 * 查询比赛中已报名的选手数量
 //	 * @param compID

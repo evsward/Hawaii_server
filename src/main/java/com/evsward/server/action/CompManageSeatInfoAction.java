@@ -83,7 +83,7 @@ public class CompManageSeatInfoAction extends StrutsAction<CompetitionInfo, Inte
 	@Action("outMember")
 	public String outMemberOfComp(){
 		HIUtil.printRequestParam(this.getClass().getSimpleName(), "outMemberOfComp");
-		HIUtil.sendResponseJson(this.compManageFacade.outMemFromComp(cmID, memID, compID));
+		HIUtil.sendResponseJson(this.compManageFacade.outMemFromComp(tableNO, seatNO, memID, compID));
 		return NONE;
 	}
 	
